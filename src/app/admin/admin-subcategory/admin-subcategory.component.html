@@ -1,0 +1,60 @@
+<div class="border rounded">
+    <div class="subCatTitle px-5 py-2 d-flex justify-content-between align-items-center bg-light border-bottom">
+        <h5>Підкатегорії</h5>
+    </div>
+    <div class="addBlock px-5 py-2 d-flex justify-content-between align-items-center bg-light border-bottom">
+        <select class="form-control" [(ngModel)]="categoryName" name="categoryName" (change)="setCategory()">
+            <option disabled>Виберіть категорію</option>
+            <option *ngFor="let category of arrCategory">
+                {{ category.nameUA | titlecase }}
+            </option>
+        </select>
+        <input class="form-control" type="text" [(ngModel)]="nameUA" name="nameUA" placeholder="Назва UA">
+        <input class="form-control" type="text" [(ngModel)]="nameEN" name="nameEN" placeholder="Назва EN">
+        <button type="button" class="btn btn-success" [disabled]="btnDis()" (click)="addSubcategory()">Добавити
+            підкатегорію</button>
+    </div>
+    <div class="container">
+        <input class="form-control my-2 border-bottom" type="text" [(ngModel)]="searchPlace" name="searchPlace"
+            placeholder="пошук...">
+        <table class="table table-bordered table-striped">
+            <thead class="table-secondary">
+                <tr class="text-center m-0">
+                    <th scope="col">№</th>
+                    <th scope="col">Назва UA<span></span>
+                    </th>
+                    <th scope="col">Назва EN<span></span>
+                    </th>
+                    <th scope="col">Категорія<span></span>
+                    <th scope="col">Редагувати</th>
+                    <th scope="col">Видалити</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center p-0" *ngFor="let sc of arrSubcategory let i = index" id="{{ i+1 }}">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ sc.nameUA | titlecase }}</td>
+                    <td>{{ sc.nameEN | titlecase }}</td>
+                    <td>{{ sc.category.nameUA | titlecase }}</td>
+                    <td><button type="button" class="btn btn-warning" (click)="editSubcategory(sc)">Редагувати</button>
+                    </td>
+                    <td><button type="button" class="btn btn-danger"
+                            (click)="openModal(template, sc.id)">Видалити</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<ng-template #template>
+    <div class="modal-body row">
+        <div class="col">
+            <button type="button" class="btn btn-dark btn-block" (click)="modalRef.hide()">Відмінити</button>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-danger btn-block" (click)="deleteSubcategory()">Видалити</button>
+        </div>
+    </div>
+</ng-template>

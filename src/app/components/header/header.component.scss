@@ -1,0 +1,395 @@
+@import"../../shared/styles-components/variables.scss";
+
+.header {
+  &__container {
+    padding: 0 15px;
+    display: flex;
+    font-family: Arial, Helvetica, sans-serif;
+
+    &_left {
+      width: 50%;
+      display: flex;
+
+      &_logo {
+        width: 40%;
+        outline: none;
+
+        img {
+          width: 100%;
+        }
+      }
+
+      &_contacts {
+        width: 60%;
+        margin-left: 40px;
+        padding-top: 10px;
+        padding-left: 45px;
+
+        &_number {
+          width: 214px;
+          font-size: 24px;
+          color: $mainDTxtColor;
+          position: relative;
+
+          a {
+            color: inherit;
+            text-decoration: none;
+            outline: none;
+            position: relative;
+            z-index: 3;
+
+            i {
+              font-size: 14px;
+              margin-left: 3px;
+              transform: rotate(0);
+              transition: transform 0.3s ease;
+            }
+          }
+
+          .numbers {
+            width: 244px;
+            height: 90px;
+            position: absolute;
+            top: -8px;
+            left: -15px;
+            font-size: 16px;
+            border: 1px solid $bdColor;
+            background-color: rgb(241, 241, 241);
+            z-index: 2;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s,
+              opacity 0.2s linear;
+
+            ul {
+              padding-top: 5px;
+              position: absolute;
+              left: 56px;
+              bottom: 0;
+              border-top: 1px solid $bdColor;
+            }
+          }
+
+          &:hover {
+            a>i {
+              transform: rotate(180deg);
+              transition: transform 0.3s ease;
+            }
+
+            .numbers {
+              visibility: visible;
+              opacity: 1;
+            }
+          }
+        }
+
+        a:hover {
+          cursor: pointer;
+        }
+
+        &_callback,
+        &_viber {
+          width: 150px;
+          display: flex;
+          color: $mainColor;
+          font-size: 14px;
+          text-decoration: underline;
+          line-height: 24px;
+          font-size: 14px;
+
+          &:hover {
+            text-decoration: none;
+            color: $mainColor;
+          }
+
+          &_icon {
+            width: 24px;
+            height: 24px;
+            font-size: 14px;
+            text-align: center;
+            color: inherit;
+          }
+        }
+
+        &_viber {
+          color: #774E98;
+
+          &:hover {
+            color: #774E98;
+          }
+        }
+      }
+    }
+
+    &_right {
+      width: 50%;
+      display: block;
+
+      &_block {
+        width: 60%;
+        height: 100%;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        float: right;
+
+
+        &_search {
+          &_form {
+            display: flex;
+
+            &_txt {
+              width: 80%;
+              height: 34px;
+              padding: 12px 6px;
+              font-size: 14px;
+              color: $mainDTxtColor;
+              border: 1px solid $bdColor;
+              border-radius: 0px;
+              z-index: 1;
+
+              &:focus {
+                border: 1px solid $mainColor;
+              }
+            }
+
+            &_btn {
+              width: 20%;
+              height: 34px;
+              margin: 0;
+              // border: 1px solid $bdColor;
+              border: none;
+              border-radius: 0px;
+              background-color: $mainColor;
+              position: relative;
+              left: -5px;
+              z-index: 2;
+              outline: none;
+
+              &:active i {
+                opacity: 0.7;
+                transform: scale(0.8);
+              }
+
+              i {
+                color: $mainLTxtColor;
+                opacity: 1;
+                position: absolute;
+                top: 9px;
+                left: 12px;
+              }
+            }
+          }
+        }
+
+        &_basket {
+
+          &_icon {
+            position: relative;
+            transform: scale(1);
+            transition: transform 0.3s ease 0.1s;
+            z-index: 1;
+
+            :hover,
+            :hover+span {
+              transform: scale(0.8);
+              cursor: pointer;
+              transition: transform 0.3s ease;
+            }
+
+            :active {
+              transform: scale(0.9);
+            }
+
+            i {
+              color: $mainDTxtColor;
+              font-size: 40px;
+              transform: scale(1);
+              transition: transform 0.3s ease 0.1s;
+            }
+
+            span {
+              min-width: 20px;
+              padding: 3px;
+              font-size: 12px;
+              text-align: center;
+              color: $mainLTxtColor;
+              border-radius: 20px;
+              background-color: $mainColor;
+              transform: scale(1);
+              transition: transform 0.3s ease 0.1s;
+              position: absolute;
+              left: 28px;
+              z-index: 2;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.popup {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+
+  &__body {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 10px;
+
+    &_content {
+      width: 350px;
+      background-color: #fff;
+      border-radius: 2px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #000;
+
+      &_header {
+        height: 40px;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: rgb(231, 231, 231);
+        border-bottom: 1px solid $bdColor;
+        font-size: 16px;
+        font-weight: bold;
+
+        &_close {
+          width: 30px;
+          height: 25px;
+          border: 1px solid rgb(173, 173, 173);
+          background-color: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          &:hover {
+            background-color: rgb(218, 218, 218);
+            cursor: pointer;
+          }
+
+          &:active {
+            box-shadow: inset 0px 0px 10px 1px rgba(0, 0, 0, 0.5);
+          }
+        }
+      }
+
+      &_main {
+        padding: 10px 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: sans-serif;
+        font-size: 16px;
+
+        .inputWrapper {
+          width: 100%;
+          position: relative;
+          font-size: 14px;
+          padding-top: 20px;
+          margin-bottom: 20px;
+
+          input,
+          textarea {
+            border: none;
+            appearance: none;
+            background: #f2f2f2;
+            padding: 12px;
+            border-radius: 3px;
+            width: 100%;
+            height: 100%;
+            outline: none;
+            font-size: 14px;
+            color: $mainDTxtColor;
+            border-radius: 0px;
+            border: 2px solid $bdColor;
+            transition: border-color 0.3s ease;
+
+            &:focus,
+            &:valid {
+              border-color: $mainColor;
+              transition-delay: 0.1s;
+
+              &+.placeholder,
+              &+.placeholder {
+                font-size: 12px;
+                color: $mainColor;
+                top: 20px;
+                background: #fff;
+              }
+            }
+
+            &+.placeholder {
+              padding: 0 5px;
+              left: 8px;
+            }
+          }
+
+          textarea {
+            min-height: 150px;
+          }
+
+          .placeholder {
+            position: absolute;
+            left: 12px;
+            top: calc(50% + 10px);
+            transform: translateY(-50%);
+            color: #aaa;
+            transition: top 0.3s ease,
+              font-size 0.3s ease,
+              top 0.3s ease;
+
+            span {
+              color: $mainColor;
+            }
+          }
+
+          .phTextarea {
+            top: 42px;
+          }
+        }
+      }
+
+      &_footer {
+        width: 100%;
+        height: 60px;
+        display: flex;
+        justify-content: space-around;
+
+        button {
+          height: 34px;
+          padding: 5px 10px;
+          outline: none;
+          color: #aaa;
+          border: 1px solid $bdColor;
+
+          &:hover {
+            color: black;
+          }
+
+          &:active {
+            box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+          }
+        }
+
+        &_callMe {
+          color: white !important;
+          background-color: $mainColor;
+        }
+      }
+    }
+
+
+  }
+}

@@ -1,0 +1,86 @@
+@import"../../shared/styles-components/variables.scss";
+
+.footer {
+  width: 100%;
+  position: relative;
+  bottom: 0;
+  background: #444;
+  padding: 30px 0;
+
+  &_container {
+    margin: 0 auto;
+    max-width: 1200px;
+
+    &_top {
+      margin: 0 auto;
+      display: flex;
+
+      &_logo,
+      &_shop-info,
+      &_catalog,
+      &_contacts {
+        width: 25%;
+        padding: 20px;
+        color: white;
+
+
+        h3 {
+          font-size: 20px;
+          font-weight: bold;
+        }
+
+        ul {
+          padding-top: 7px;
+          padding-bottom: 15px;
+          font-family: Arial,
+            Helvetica,
+            sans-serif;
+          color: $txtColor;
+
+          li {
+            padding: 2px 0;
+
+            a {
+              font-size: 14px;
+              text-decoration: none;
+              outline: none;
+              color: inherit;
+
+              &:hover {
+                color: $mainColor;
+                cursor: pointer;
+              }
+
+              &.active {
+                color: $mainColor;
+              }
+            }
+          }
+        }
+      }
+
+      &_logo {
+        padding-left: 50px;
+
+        img {
+          height: 150px;
+        }
+      }
+
+      &_contacts {
+        p {
+          width: 155px;
+
+          &:hover {
+            color: $mainColor;
+            cursor: default !important;
+          }
+        }
+      }
+    }
+
+    &_bottom {
+      margin: 0 auto;
+    }
+  }
+}

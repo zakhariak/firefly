@@ -1,0 +1,86 @@
+<div class="header">
+    <app-headline></app-headline>
+    <div class="header__container">
+        <div class="header__container_left">
+            <div class="header__container_left-logo">
+                <a [routerLink]="[ '/home' ]"><img src="../../../assets/images/LOGO.png" alt="logo"></a>
+
+            </div>
+            <div class="header__container_left_contacts">
+                <div class="header__container_left_contacts_number">
+                    <a href="tel:+ 380508102280">+38 050 000 00 00<i class="fas fa-angle-down"></i></a>
+                    <div class="numbers">
+                        <ul>
+                            <li><a href="tel:+38 097 000 00 00">+38 097 000 00 00</a></li>
+                            <li><a href="tel:+38 063 000 00 00">+38 063 000 00 00</a></li>
+                            <li><a href="tel:+38 032 000 00 00">+38 032 000 00 00</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <a class="header__container_left_contacts_callback" (click)="openModal()">
+                    <div class="header__container_left_contacts_callback_icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <p>Зворотній дзвінок</p>
+                </a>
+                <a href="" class="header__container_left_contacts_viber">
+                    <div class="header__container_left_contacts_viber_icon">
+                        <i class="fab fa-viber"></i>
+                    </div>
+                    <p>Зв'язятися у Viber</p>
+                </a>
+            </div>
+        </div>
+        <div class="header__container_right">
+            <div class="header__container_right_block">
+                <div class="header__container_right_block_search">
+                    <label class="header__container_right_block_search_form">
+                        <input class="header__container_right_block_search_form_txt" type=" text">
+                        <button class="header__container_right_block_search_form_btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </label>
+                </div>
+                <div class="header__container_right_block_basket">
+                    <label class="header__container_right_block_basket_icon">
+                        <i class="fas fa-shopping-basket"></i>
+                        <span>10</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- modal window -->
+
+<div *ngIf="modal" id="mypopup" class="popup">
+    <div class="popup__body">
+        <div class="popup__body_content">
+            <div class="popup__body_content_header">
+                <p class="popup__body_content_header_title">Замовити зворотній дзвінок</p>
+                <span class="popup__body_content_header_close" (click)="closeModal()"><i
+                        class="fas fa-times"></i></span>
+            </div>
+            <div class="popup__body_content_main">
+                <label class="inputWrapper">
+                    <input type="text" name="name" [(ngModel)]="name" required>
+                    <span class="placeholder">Імя<span>*</span></span>
+                </label>
+                <label class="inputWrapper">
+                    <input type="text" name="phone" [(ngModel)]="phone" required>
+                    <span class="placeholder">Ваш телефон<span>*</span></span>
+                </label>
+                <label class="inputWrapper">
+                    <textarea name="message" [(ngModel)]="message" required></textarea>
+                    <span class="placeholder phTextarea">Повідомлення</span>
+                </label>
+            </div>
+            <div class="popup__body_content_footer">
+                <button class="popup__body_content_footer_close" (click)="closeModal()">Закрити</button>
+                <button class="popup__body_content_footer_callMe" (click)="postMessage()">Передзвоніть мені</button>
+            </div>
+        </div>
+    </div>
+</div>

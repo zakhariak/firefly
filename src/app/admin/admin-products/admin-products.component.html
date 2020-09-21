@@ -1,0 +1,123 @@
+<div class="border rounded">
+    <div class="prodTitle px-5 py-2 d-flex justify-content-between align-items-center bg-light border-bottom">
+        <h5>Товари</h5>
+        <button type="button" class="btn btn-success" (click)="openModal(template)">Добавити товар</button>
+    </div>
+    <div class="container">
+        <input class="form-control my-2 border-bottom" type="text" [(ngModel)]="searchPlace" name="searchPlace"
+            placeholder="пошук товару...">
+        <table class="table table-bordered">
+            <thead class="table-secondary">
+                <tr class="text-center m-0">
+                    <th scope="col">№</th>
+                    <th scope="col">Назва товару<span></span>
+                    </th>
+                    <th scope="col">Ціна товару<span></span>
+                    </th>
+                    <th scope="col">Час доставки<span></span>
+                    </th>
+                    <th scope="col">Редагувати</th>
+                    <th scope="col">Видалити</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center p-0" *ngFor="let p of arrProducts let i = index" id="{{ i+1 }}">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ p.name }}</td>
+                    <td>{{ p.price }}</td>
+                    <td>{{ p.deliveryDays }}</td>
+                    <td><button type="button" class="btn btn-warning"
+                            (click)="editCategory(template, p)">Редагувати</button>
+                    </td>
+                    <td><button type="button" class="btn btn-danger"
+                            (click)="deleteModal(template, p)">Видалити</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left" (click)="aaa()">Добавити товар</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row my-2 firstBlock">
+            <input type="text" class="col mx-2 form-control" [(ngModel)]="name" name="name"
+                placeholder="Назва товару ...">
+            <select class="form-control col mx-2" [(ngModel)]="categoryName" name="categoryName"
+                (change)="setCategory()">
+                <option disabled>Виберіть категорію</option>
+                <option *ngFor="let category of arrCategory">
+                    {{ category.nameUA | titlecase }}
+                </option>
+            </select>
+            <select class="form-control col mx-2" [(ngModel)]="subcategoryName" name="subcategoryName"
+                (change)="setSubcategory()">
+                <option [textContent]="arrSubcategory == 0 ? 'Виберіть категорію' : 'Виберіть підкатегорію'" disabled>
+                </option>
+                <option *ngFor="let subcategory of arrSubcategory">
+                    {{ subcategory.nameUA | titlecase }}
+                </option>
+            </select>
+            <select class="form-control col mx-2" [(ngModel)]="brandName" name="brandName" (change)="setBrand()">
+                <option disabled>Виберіть торгову марку</option>
+                <option *ngFor="let brand of arrBrands">
+                    {{ brand.name | titlecase }}
+                </option>
+            </select>
+        </div>
+        <div class="row my-3 secondBlock">
+            <input type="number" class="col mx-2 form-control" [(ngModel)]="price" name="price"
+                placeholder="Ціна товару в гривнях ...">
+            <input type="number" class="col mx-2 form-control" [(ngModel)]="deliveryDays" name="deliveryDays"
+                placeholder="Час доставки в днях ...">
+            <div class="input-group mb-3 col">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <span class="mr-1" [ngClass]="isActive? 'text-danger':'' ">Акція </span>
+                        <input id="checkBox" type="checkbox" name="isActive" [(ngModel)]="isActive">
+                    </div>
+                </div>
+                <input type="text" class="form-control" placeholder="Процент знижки" [disabled]="!isActive">
+            </div>
+        </div>
+        <div class="row col-12">
+            <div class="upload col-4">
+                <app-upload-image></app-upload-image>
+            </div>
+            <div class="character col-8">
+                <p class="character_title py-1">Характеристики товару</p>
+                <div class="character_body" id="selectsCh">
+                    <label *ngFor="let char of arrChar">
+                        <p>{{ char.name }}</p>
+                        <select class="form-control col mx-2" (change)="showA(char.nameEN, $event.target.value)">
+                            <option selected disabled>-</option>
+                            <option *ngFor="let item of char.select" (onclick)="addSelect()">{{ item }}</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+        <button type="button" class="btn btn-info" [disabled]="btnDis()" (click)="addProduct()"
+            [textContent]="!editStatus ? 'Добавити' : 'Зберегти'"></button>
+    </div>
+</ng-template>
+
+<ng-template #deleteModal>
+    <div class="modal-body row">
+        <div class="col">
+            <button type="button" class="btn btn-dark btn-block" (click)="modalRef2.hide()">Відмінити</button>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-danger btn-block" (click)="deleteProduct()">Видалити</button>
+        </div>
+    </div>
+</ng-template>

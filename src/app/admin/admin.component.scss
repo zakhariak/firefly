@@ -1,0 +1,40 @@
+.mainContainer {
+  min-height: 80vh;
+  padding: 0;
+  background-color: white;
+
+  .row {
+    margin: 0;
+
+    .nav {
+      background-color: grey;
+      padding: 5px;
+    }
+  }
+}
+
+.active {
+  color: white !important;
+  background-color: #343a40 !important;
+  box-shadow: none;
+
+  &:focus {
+    color: white !important;
+  }
+
+  &:hover {
+    color: white !important;
+  }
+}
+
+.routeBlock {
+  padding: 10px;
+  min-height: 85vh;
+  border: 2px solid grey;
+}
+
+.backHome {
+  &:hover {
+    color: #c80000 !important;
+  }
+}

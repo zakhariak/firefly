@@ -1,0 +1,27 @@
+.up {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 100px;
+  right: 75px;
+  background-color: rgba(0, 0, 0, 0.2);
+  transform: scale(1);
+  transition: transform 0.25s ease;
+  z-index: 999;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1);
+    transition: transform 0.25s ease;
+  }
+
+  i {
+    font-size: 50px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.6;
+  }
+}
