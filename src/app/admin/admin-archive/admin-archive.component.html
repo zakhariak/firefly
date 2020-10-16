@@ -1,1 +1,100 @@
-<p>admin-archive works!</p>
+<div class="mainContainer">
+    <div class="orders">
+        <table>
+            <thead>
+                <tr class="title">
+                    <td colspan="5">
+                        <h3>Замовлення</h3>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Дата</th>
+                    <th>Прізвище і Ім'я</th>
+                    <th>Номер телефону</th>
+                    <th>Сума замовлення</th>
+                    <th>Деталі</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let or of orders">
+                    <td>{{ or.dateOrder }}</td>
+                    <td>{{ or.userLastName | mytitlecase }} {{ or.userFirstName | mytitlecase }}</td>
+                    <td>{{ or.userPhone}}</td>
+                    <td>{{ sumPrice(or) }} грн</td>
+                    <td>
+                        <input type="button" class="btn btn-info" value="Деталі"
+                            (click)="openModal(details, or.id, true)">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<ng-template #details>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Деталі замовлення № {{ oneOrder?.id }}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="container d-flex userInfo">
+            <div class="container">
+                <h5 class="border-bottom mb-1"><span>Прізвище:</span>
+                    {{ oneOrder?.userLastName | titlecase}}
+                </h5>
+                <h5><span>Ім'я:</span>
+                    {{ oneOrder?.userFirstName | titlecase}}</h5>
+                <p class="border-bottom mb-1"><span>моб.:</span> {{ oneOrder?.userPhone }}</p>
+                <p class="border-bottom mb-1"><span>email:</span> {{ oneOrder?.userEmail }}</p>
+                <p>{{ oneOrder?.dateOrder}}</p>
+            </div>
+            <div class="container">
+                <p class="border-bottom mb-1"><span>Доставка:</span> {{ oneOrder?.delivery | titlecase }}</p>
+                <p><span>Коментар:</span> {{ oneOrder?.userComment | titlecase}}</p>
+                <p><span>Сума замовлення:</span> {{ totalPrice }} <span>грн.</span></p>
+            </div>
+        </div>
+        <div class="container">
+            <table class="table">
+                <thead class="table-secondary">
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Товар</th>
+                        <th scope="col">Ціна</th>
+                        <th scope="col">Кількість</th>
+                        <th scope="col">Загалом</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let pDetails of oneOrder?.ordersDetails; let i=index">
+                        <td><img src="{{ pDetails.image }}" style="width:50px" alt=""></td>
+                        <td>{{ pDetails.name }}</td>
+                        <td>{{ pDetails.price }}</td>
+                        <td>{{ pDetails.count }} </td>
+                        <td>{{ sumPrice(oneOrder) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="container-fluid row">
+            <div>
+                <input type="button" value="Видалити" class="btn btn-danger" (click)="openDeleteModal(delete)">
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #delete>
+    <div class="modal-body row bg-warning">
+        <div class="col">
+            <button type="button" class="btn btn-dark btn-block" (click)="modalRef2.hide()">Dismiss</button>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-danger btn-block" (click)="deleteOrder()">Delete</button>
+        </div>
+    </div>
+</ng-template>

@@ -20,29 +20,92 @@
     <div class="headline_right">
         <div class="headline_right_options">
             <div class="headline_right_options_favorites">
-                <a href="" class="headline_right_options_favorites_item">
+                <a class="headline_right_options_favorites_item" [ngClass]="checkUser()?'active':''">
                     <div class="headline_right_options_favorites_item_wrapIc">
                         <i class="far fa-heart"></i>
                     </div>
-                    <span class="headline_right_options_favorites_item_title"><i>Улюблені</i><span> (0)</span></span>
+                    <span class="headline_right_options_favorites_item_title" [routerLink]="[ '/wishlist' ]"
+                        routerLinkActive="active"><i>Список бажань</i><span [textContent]="checkWishlist()?'('+wishlistCount+')':'(0)'"></span></span>
                 </a>
             </div>
             <div class="headline_right_options_comparison">
-                <a href="" class="headline_right_options_comparison_item">
+                <a class="headline_right_options_comparison_item">
                     <div class="headline_right_options_comparison_item_wrapIc">
                         <i class="fas fa-exchange-alt"></i>
                     </div>
-                    <span class="headline_right_options_comparison_item_title"><i>Порівняння</i><span> (0)</span></span>
+                    <span class="headline_right_options_comparison_item_title" [routerLink]="[ '/compare' ]"
+                        routerLinkActive="active"><i>Порівняння</i><span
+                            [textContent]="checkLocalStorage()?'('+compareCount+')':'(0)'"></span></span>
                 </a>
             </div>
             <div class="headline_right_options_profile">
-                <a href="" class="headline_right_options_profile_item">
+                <a class="headline_right_options_profile_item">
                     <div class="headline_right_options_profile_item_wrapIc">
                         <i class="far fa-user"></i>
                     </div>
-                    <span class="headline_right_options_profile_item_title"><i>Особистий кабінет</i><span></span></span>
+                    <div class="headerSection" *ngIf="!statusLogin">
+                        <a (click)="openModal('sign-in')">Увійти</a>
+                    </div>
+                    <div class="headerSection" *ngIf="statusLogin">
+                        <a [routerLink]="[ '/'+ urlName ]">{{ menuName | titlecase }}</a>
+                    </div>
                 </a>
             </div>
         </div>
     </div>
 </div>
+
+<app-mymodal id="sign-in">
+    <div class="modal_header">
+        <p class="modal_header_title" [textContent]="!signup?'Увійти в особистий кабінет':'Реєстрація'"></p>
+        <span class="modal_header_close" (click)="closeModal('sign-in')"><i class="fas fa-times"></i></span>
+    </div>
+    <div *ngIf="!signup">
+        <div class="modal_main">
+            <div class="inputWrapper">
+                <input type="text" name="email" [(ngModel)]="email" #userEmail="ngModel" [pattern]="patternEmail"
+                    autocomplete="off">
+                <p class="placeholder">Електронна адреса<span>*</span></p>
+                <p *ngIf="userEmail.errors?.pattern" class="txtAlarm">Перевірте email</p>
+            </div>
+            <div class="inputWrapper">
+                <input type="text" name="password" [(ngModel)]="password" #userPassword="ngModel"
+                    [pattern]="patternPassword" autocomplete="off">
+                <p class="placeholder">Пароль<span>*</span></p>
+                <p *ngIf="userPassword.errors?.pattern" class="txtAlarm">Перевірте пароль</p>
+            </div>
+            <p (click)="signUp()">Регістрація</p>
+        </div>
+    </div>
+    <form *ngIf="signup" #registerForm="ngForm" novalidate (submit)="register(registerForm)">
+        <div class="modal_main">
+            <div class="inputWrapper">
+                <input type="text" name="name" [(ngModel)]="name" #userName="ngModel" [pattern]="patternName"
+                    autocomplete="off">
+                <p class="placeholder">Ім'я<span>*</span></p>
+                <p *ngIf="userName.errors?.pattern" class="txtAlarm">Перевірте ім'я</p>
+            </div>
+            <div class="inputWrapper">
+                <input type="email" name="email" [(ngModel)]="email" #userEmail="ngModel" [pattern]="patternEmail"
+                    autocomplete="off">
+                <p class="placeholder">Електронна адреса<span>*</span></p>
+                <p *ngIf="userEmail.errors?.pattern" class="txtAlarm">Перевірте email</p>
+            </div>
+            <div class="inputWrapper">
+                <input type="text" name="password" [(ngModel)]="password" #userPassword="ngModel"
+                    [pattern]="patternPassword" autocomplete="off">
+                <p class="placeholder">Пароль<span>*</span></p>
+                <p *ngIf="userPassword.errors?.pattern" class="txtAlarm">Перевірте пароль</p>
+            </div>
+            <p (click)="signUp()">Увійти в кабінет</p>
+        </div>
+        <div class="modal_footer">
+            <input type="button" value="Закрити" class="modal_footer_close" (click)="closeModal('sign-in')">
+            <input type="submit" class="modal_footer_sign" value="Зареєструватись" [disabled]="checkForm()">
+        </div>
+    </form>
+    <div *ngIf="!signup" class="modal_footer">
+        <input type="button" value="Закрити" class="modal_footer_close" (click)="closeModal('sign-in')">
+        <input type="button" class="modal_footer_sign" value="Увійти" (click)="signIn()">
+    </div>
+</app-mymodal>

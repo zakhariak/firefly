@@ -35,7 +35,7 @@
                     <td>{{ br.name | titlecase }}</td>
                     <td>{{ br.country | titlecase }}</td>
                     <td>
-                        <div class="miniImage" [style.backgroundImage]="'url('+ br.logo +')'"></div>
+                        <img class="miniImage" src="{{ br.logo }}" alt="">
                     </td>
                     <td><button type="button" class="btn btn-warning" (click)="editBrand(br)">Редагувати</button>
                     </td>

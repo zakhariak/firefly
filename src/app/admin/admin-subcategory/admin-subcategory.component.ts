@@ -75,7 +75,6 @@ export class AdminSubcategoryComponent implements OnInit {
         newSubc.id = this.sID
         this.subcategoryService.updateSubcategory({ ...newSubc });
         this.editStatus = false;
-        console.log('Subcategory edit');
       }
       this.resetForm();
     }

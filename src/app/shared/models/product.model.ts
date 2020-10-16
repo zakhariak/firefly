@@ -7,7 +7,8 @@ import { IProdCharacter } from '../interfaces/product-characteristics.interface'
 
 export class Product implements IProduct {
     constructor(
-        public id: any,
+        public id: string,
+        public date: Date,
         public productСode: number,
         public name: string,
         public subcategory: ISubcategory,
@@ -18,6 +19,8 @@ export class Product implements IProduct {
         public rating: Array<number>,
         public deliveryDays: number,
         public discountPercent: number,
+        public quantityInStock: number,
+        public count: number,
         public characteristics?: Array<IProdCharacter>
     ) { }
 }

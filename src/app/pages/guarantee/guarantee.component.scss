@@ -1,0 +1,43 @@
+@import"../../shared/styles-components/variables.scss";
+
+.mainContainer {
+  width: 100%;
+  padding: 50px;
+  line-height: 20px;
+
+  p,
+  li {
+    color: $txtColor;
+    font-size: 14px;
+  }
+
+  h2 {
+    font-size: 32px;
+    font-weight: bold;
+  }
+
+  >section {
+    margin: 20px 0;
+
+    >h3 {
+      margin-bottom: 10px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    p {
+      margin-top: 10px;
+
+      >span {
+        font-size: 16px;
+        font-weight: bold;
+        color: black;
+      }
+    }
+
+    >ul {
+      padding-left: 20px;
+      list-style: square;
+    }
+  }
+}

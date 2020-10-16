@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { IUser } from '../interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class AuthService {
           }
         );
       })
-      .catch(err => console.log(err));
+      .catch(err => alert(err.message));
   }
 
   signOut(): void {
@@ -44,24 +45,25 @@ export class AuthService {
         this.router.navigateByUrl('/home');
         this.userStatusChanges.next('logout');
       })
-      .catch(err => console.log(err));
+      .catch(err => (err));
   }
 
-  signUp(email: string, password: string, firtstName: string, lastName: string): void {
+  signUp(email: string, password: string, name: string): void {
     this.afAuth.createUserWithEmailAndPassword(email, password)
       .then(userResponse => {
-        const user = {
+        const user: IUser = {
           id: userResponse.user.uid,
+          firstName: name,
+          lastName: '',
           email: userResponse.user.email,
-          firstName: firtstName,
-          lastName: lastName,
+          phone: '',
+          wishlist: [],
           role: 'user'
         };
         this.firestore.collection('users').add(user)
           .then(data => {
             data.get()
               .then(user => {
-                console.log(user.data());
                 localStorage.setItem('mainUser', JSON.stringify(user.data()));
                 this.router.navigateByUrl('profile');
               })

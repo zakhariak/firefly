@@ -1,6 +1,6 @@
 <div class="container-fluid my-2 mainContainer">
-    <div class="row">
-        <div class="col-2">
+    <div class="row mainBody">
+        <div class="col-2 dNav">
             <div class="nav flex-column nav-pills rounded" role="tablist" aria-orientation="vertical">
                 <a class="btn nav-link text-dark" [routerLink]="[ 'category' ]" routerLinkActive="active">Категорії</a>
                 <a class="btn nav-link text-dark" [routerLink]="[ 'subcategory' ]"
@@ -13,13 +13,24 @@
                 <a class="btn nav-link text-dark" [routerLink]="[ 'textPages' ]" routerLinkActive="active">Текстові
                     сторінки</a>
                 <a class="btn nav-link text-dark" [routerLink]="[ 'blog' ]" routerLinkActive="active">Новини</a>
+                <a class="btn nav-link text-dark" [routerLink]="[ 'slider' ]" routerLinkActive="active">Слайдер</a>
                 <a class="btn nav-link text-dark" [routerLink]="[ 'orders' ]" routerLinkActive="active">Замовлення</a>
                 <a class="btn nav-link text-dark" [routerLink]="[ 'archive' ]" routerLinkActive="active">Архів</a>
                 <a class="btn backHome nav-link text-dark" [routerLink]="[ '/home' ]">На головну</a>
                 <button class="btn btn-warning" (click)="signOut()">Вийти</button>
             </div>
         </div>
-        <div class="col-10">
+        <div class="mNav">
+            <div class="nav flex-row nav-pills rounded bg-secondary p-1" role="tablist" aria-orientation="horizontal">
+                <a class="btn nav-link text-light" [routerLink]="[ 'orders' ]" routerLinkActive="active">Замовлення</a>
+                <a class="btn nav-link text-light" [routerLink]="[ 'archive' ]" routerLinkActive="active">Архів</a>
+            </div>
+            <div class="allert">
+                <h2 class="text-danger">!!! Не все так просто, прошу зайти з комп'ютера для редагування даних на сайті
+                </h2>
+            </div>
+        </div>
+        <div class="routerBlock col-10">
             <div class="tab-content overflow-hidden routeBlock rounded">
                 <router-outlet></router-outlet>
             </div>

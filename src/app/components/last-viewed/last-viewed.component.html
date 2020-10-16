@@ -1,0 +1,26 @@
+<div *ngIf="this.products.length !==0" class="lastViewedBlock">
+    <h3>Останні переглянуті</h3>
+    <div class="lastViewed">
+        <div class="prodCard" *ngFor="let prod of products">
+            <div class=" prodWrap">
+                <div *ngIf="prod.discountPercent !== 0" class="discountsBlock">
+                    <p class="txtDiscount">Акція</p>
+                    <p class="percentDiscount">-{{ prod.discountPercent }}%</p>
+                </div>
+                <a [routerLink]="[ '/menu/promotional_offers' + '/' + prod.subcategory.nameEN, prod.id ]">
+                    <img class="prodImg" src="{{ prod.image }}">
+                </a>
+                <a class="prodTitle"
+                    [routerLink]="[ '/menu/'+prod.category.nameEN + '/' + prod.subcategory.nameEN, prod.id ]">
+                    {{ prod.name }}</a>
+                <p class="prodTxt">Час доставки до {{ prod.deliveryDays }} днів</p>
+                <div class="prodPrice">
+                    <p *ngIf="prod.discountPercent !== 0" class="oldPrice" [textContent]="prod.price+'грн'"></p>
+                    <p class="newPrice"
+                        [textContent]="(prod.discountPercent !== 0)?calcPrice(prod.price, prod.discountPercent)+'грн':prod.price+'грн'">
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

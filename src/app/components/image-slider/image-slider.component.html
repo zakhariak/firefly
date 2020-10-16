@@ -1,0 +1,5 @@
+<carousel [isAnimated]="true" id="carousel">
+    <slide *ngFor="let img of images">
+        <img src="{{ img.link }}" alt="first slide" style="display: block; width: 100%;">
+    </slide>
+</carousel>

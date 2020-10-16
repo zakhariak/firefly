@@ -11,7 +11,8 @@ import { ProdCharacter } from '../../shared/models/product-characteristics.model
 export class AdminAddComponent implements OnInit {
   arrCharactr: Array<IProdCharacter> = [];
   selectArr: Array<string> = [];
-  characteristicName: string;
+  characteristicNameUA: string;
+  characteristicNameEN: string;
   characterName: string = "Виберіть характеристику";
   selectName: string;
   search: string;
@@ -24,7 +25,8 @@ export class AdminAddComponent implements OnInit {
 
   resetForm(): void {
     this.selectArr = [];
-    this.characteristicName = "";
+    this.characteristicNameUA = "";
+    this.characteristicNameEN = "";
     this.selectName = "";
     this.characterName = "Виберіть характеристику";
     this.selectName = "";
@@ -43,8 +45,8 @@ export class AdminAddComponent implements OnInit {
   }
 
   addCharacter() {
-    if (this.characteristicName) {
-      const newCh = new ProdCharacter('1', this.characteristicName.toLowerCase(), this.selectArr)
+    if (this.characteristicNameUA && this.characteristicNameEN) {
+      const newCh = new ProdCharacter('1', this.characteristicNameUA.toLowerCase(), this.characteristicNameEN.toLowerCase(), this.selectArr)
       delete newCh.id;
       this.characterService.addCharacteristic({ ...newCh })
       this.resetForm();
@@ -52,7 +54,7 @@ export class AdminAddComponent implements OnInit {
   }
 
   addCharacteristicValue(): void {
-    const char = this.arrCharactr.filter(char => char.name === this.characterName.toLowerCase())[0];
+    const char = this.arrCharactr.filter(char => char.nameUA === this.characterName.toLowerCase())[0];
     char.select.push(this.selectName);
     this.characterService.updateCharacteristic(char);
     this.resetForm();
@@ -68,6 +70,22 @@ export class AdminAddComponent implements OnInit {
     if (confirm('Ви дійсно бажаєте видалити?')) {
       char.select.splice(i, 1);
       this.characterService.updateCharacteristic(char);
+    }
+  }
+
+  disBtnCreate(): boolean {
+    if (this.characteristicNameUA && this.characteristicNameEN) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  disBtnAdd(): boolean {
+    if (this.characterName !== "Виберіть характеристику" && this.selectName) {
+      return true
+    } else {
+      return false
     }
   }
 }

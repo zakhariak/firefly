@@ -1,1 +1,104 @@
-<p>compare works!</p>
+<div class="mainContainer">
+    <div class="title">
+        <h2>Порівняння товарів</h2>
+    </div>
+    <div class="button">
+        <input type="button" [value]="chooseDisplay?'Порівняти усі разом':'Порівняти по категоріях'"
+            (click)="chooseD()">
+    </div>
+    <div *ngIf="chooseDisplay" class="body">
+        <div *ngFor="let cat of arrCategoryName" class="oneCategoryBox">
+            <div class="category">
+                <h3 (click)="getProducts(cat)">{{ cat | mytitlecase }}</h3>
+            </div>
+            <div class="products">
+                <div class="character" id="character">
+                    <div class="empty">
+                    </div>
+                    <div>
+                        <p>Виробник</p>
+                    </div>
+                    <div>
+                        <p>Країна</p>
+                    </div>
+                    <div *ngFor="let item of getProducts(cat)[0].characteristics">
+                        <p>{{ item.name |mytitlecase }}</p>
+                    </div>
+                </div>
+                <div *ngFor="let prod of getProducts(cat)" class="oneProduct">
+                    <div class="prodHead">
+                        <div class="image"
+                            [routerLink]="[ '/menu/'+prod.category.nameEN + '/' + prod.subcategory.nameEN, prod.id ]">
+                            <img src="{{ prod.image }}" alt="{{ prod.name }}">
+                        </div>
+                        <h3 [routerLink]="[ '/menu/'+prod.category.nameEN + '/' + prod.subcategory.nameEN, prod.id ]">
+                            {{ prod.name |mytitlecase }}</h3>
+                        <div class="prodPrice">
+                            <p *ngIf="prod?.discountPercent !== 0" class="oldPrice" [textContent]="prod?.price+'грн'">
+                            </p>
+                            <p class="newPrice"
+                                [textContent]="(prod?.discountPercent !== 0)?calcPrice(prod?.price, prod?.discountPercent)+'грн':prod?.price+'грн'">
+                            </p>
+                        </div>
+                        <input type="button" value="Видалити" (click)="deleteProduct(prod)">
+                    </div>
+                    <div>
+                        <p>{{ prod.trademarks.name }}</p>
+                    </div>
+                    <div>
+                        <p>{{ prod.trademarks.country }}</p>
+                    </div>
+                    <div *ngFor="let item of getProducts(cat)[0].characteristics let i = index">
+                        <p>{{ getValue(prod,item) }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!chooseDisplay" class="body">
+        <div class="oneCategoryBox">
+            <div class="products">
+                <div class="character" id="character">
+                    <div class="empty">
+                    </div>
+                    <div>
+                        <p>Виробник</p>
+                    </div>
+                    <div>
+                        <p>Країна</p>
+                    </div>
+                    <div *ngFor="let item of arrayProducts[0].characteristics">
+                        <p>{{ item.name |mytitlecase }}</p>
+                    </div>
+                </div>
+                <div *ngFor="let prod of arrayProducts" class="oneProduct">
+                    <div class="prodHead">
+                        <div class="image"
+                            [routerLink]="[ '/menu/'+prod.category.nameEN + '/' + prod.subcategory.nameEN, prod.id ]">
+                            <img src="{{ prod.image }}" alt="{{ prod.name }}">
+                        </div>
+                        <h3 [routerLink]="[ '/menu/'+prod.category.nameEN + '/' + prod.subcategory.nameEN, prod.id ]">
+                            {{ prod.name |mytitlecase }}</h3>
+                        <div class="prodPrice">
+                            <p *ngIf="prod?.discountPercent !== 0" class="oldPrice" [textContent]="prod?.price+'грн'">
+                            </p>
+                            <p class="newPrice"
+                                [textContent]="(prod?.discountPercent !== 0)?calcPrice(prod?.price, prod?.discountPercent)+'грн':prod?.price+'грн'">
+                            </p>
+                        </div>
+                        <input type="button" value="Видалити" (click)="deleteProduct(prod)">
+                    </div>
+                    <div>
+                        <p>{{ prod.trademarks.name }}</p>
+                    </div>
+                    <div>
+                        <p>{{ prod.trademarks.country }}</p>
+                    </div>
+                    <div *ngFor="let item of arrayProducts[0].characteristics let i = index">
+                        <p>{{ getValue(prod,item) }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

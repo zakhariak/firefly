@@ -6,7 +6,7 @@
         <select class="form-control" [(ngModel)]="categoryName" name="categoryName" (change)="setCategory()">
             <option disabled>Виберіть категорію</option>
             <option *ngFor="let category of arrCategory">
-                {{ category.nameUA | titlecase }}
+                {{ category.nameUA | mytitlecase }}
             </option>
         </select>
         <input class="form-control" type="text" [(ngModel)]="nameUA" name="nameUA" placeholder="Назва UA">
@@ -33,9 +33,9 @@
             <tbody>
                 <tr class="text-center p-0" *ngFor="let sc of arrSubcategory let i = index" id="{{ i+1 }}">
                     <td>{{ i+1 }}</td>
-                    <td>{{ sc.nameUA | titlecase }}</td>
-                    <td>{{ sc.nameEN | titlecase }}</td>
-                    <td>{{ sc.category.nameUA | titlecase }}</td>
+                    <td>{{ sc.nameUA | mytitlecase }}</td>
+                    <td>{{ sc.nameEN | mytitlecase }}</td>
+                    <td>{{ sc.category.nameUA | mytitlecase }}</td>
                     <td><button type="button" class="btn btn-warning" (click)="editSubcategory(sc)">Редагувати</button>
                     </td>
                     <td><button type="button" class="btn btn-danger"

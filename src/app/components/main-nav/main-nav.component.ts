@@ -9,7 +9,8 @@ import { ISubcategory } from '../../shared/interfaces/subcategory.interface';
 })
 export class MainNavComponent implements OnInit {
   arrSubcategory: Array<ISubcategory> = [];
-  num: number = 0;
+  nameCat: string = "";
+  catLink: string = "";
 
   constructor(private firestore: AngularFirestore) { }
 
@@ -18,46 +19,25 @@ export class MainNavComponent implements OnInit {
 
 
   getSubcategory(nameCategory: string, event: any): void {
-    // console.log(event.target.parentNode.parentNode.nextSibling.style.height == "");
-    if (this.num == 0) {
-      event.target.parentNode.parentNode.nextSibling.classList.add('showDrop')
-      this.num++
-    } else {
-      event.target.parentNode.parentNode.nextSibling.classList.remove('showDrop')
-      this.num = 0
-    }
+    this.nameCat = nameCategory;
     this.arrSubcategory = [];
     this.firestore.collection('subcategory').ref.where('category.nameUA', '==', nameCategory.toLowerCase()).onSnapshot(
       collection => {
         collection.forEach(document => {
           const data = document.data() as ISubcategory;
           data.id = document.id;
+          this.catLink = data.category.nameEN;
           this.arrSubcategory.push({ ...data });
         })
       }
     )
-    // if (num) {
-    //   this.dropShow();
-    // }
+    this.dropShow(event);
   }
 
-  // dropShow(num: number): void {
-  //   if (num !== this.num) {
-  //     this.num = num;
-  //     document.getElementById(`drop${num}`).style.height = '200px';
-  //   } else {
-  //     this.dropHide(num);
-  //     this.num = 0;
-  //   }
-  // }
-
-  // dropHide(num: number): void {
-  //   document.getElementById(`drop${num}`).style.height = '0px';
-  // }
-
-  dropShow(): void {
-
+  dropShow(event: any): void {    
+    if (document.querySelector('.showDrop') && event.target.parentNode.nextSibling !== document.querySelector('.showDrop')) {
+      document.querySelector('.showDrop').classList.remove('showDrop');
+    }
+    event.target.parentNode.nextSibling.classList.toggle('showDrop');
   }
-
-
 }

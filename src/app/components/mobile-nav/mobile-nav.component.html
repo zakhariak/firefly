@@ -1,0 +1,147 @@
+<div class="wrapIcon">
+    <div (click)="showNav()">
+        <i class="fas fa-bars"></i>
+    </div>
+</div>
+<div class="mobileNav" id="nav" (blur)="showNav()" autofocus>
+    <div class="menu" id="menu">
+        <div class="main-menu">
+            <div class="category">
+                <ul>
+                    <li class="collapse" (click)="showNav()">
+                        <p><i class="fas fa-arrow-left"></i> Згорнути</p>
+                    </li>
+                    <li (click)="getSubcategory('люстри')">
+                        <div class="wrapImg">
+                            <img src="../../../assets/images/category-icon/lustri.png">
+                        </div>
+                        <p>Люстри</p>
+                        <i class="fas fa-angle-right"></i>
+                    </li>
+                    <li (click)="getSubcategory('стельові світильники')">
+                        <div class="wrapImg">
+                            <img src="../../../assets/images/category-icon/stelia.png">
+                        </div>
+                        <p>Стельові світильники</p>
+                        <i class="fas fa-angle-right"></i>
+                    </li>
+                    <li (click)="getSubcategory('точкові світильники')">
+                        <div class="wrapImg">
+                            <img src="../../../assets/images/category-icon/tochkovi.png">
+                        </div>
+                        <p>Точкові світильники</p>
+                        <i class="fas fa-angle-right"></i>
+                    </li>
+                    <li (click)="getSubcategory('трекові системи')">
+                        <div class="wrapImg">
+                            <img src="../../../assets/images/category-icon/trekovi.png">
+                        </div>
+                        <p>Трекові системи</p>
+                        <i class="fas fa-angle-right"></i>
+                    </li>
+                    <li (click)="getSubcategory('бра')">
+                        <div class="wrapImg">
+                            <img src="../../../assets/images/category-icon/bra.png">
+                        </div>
+                        <p>Бра</p>
+                        <i class="fas fa-angle-right"></i>
+                    </li>
+                    <li (click)="getSubcategory('настільні лампи')">
+                        <div class="wrapImg">
+                            <img src="../../../assets/images/category-icon/nastilni.png">
+                        </div>
+                        <p>Настільні лампи</p>
+                        <i class="fas fa-angle-right"></i>
+                    </li>
+                    <li (click)="getSubcategory('торшери')">
+                        <div class="wrapImg">
+                            <img src="../../../assets/images/category-icon/torshery.png">
+                        </div>
+                        <p>Торшери</p>
+                        <i class="fas fa-angle-right"></i>
+                    </li>
+                    <li (click)="getSubcategory('вуличні світильники')">
+                        <div class="wrapImg">
+                            <img src="../../../assets/images/category-icon/vulychni.png">
+                        </div>
+                        <p>Вуличні світильники</p>
+                        <i class="fas fa-angle-right"></i>
+                    </li>
+                    <li (click)="getSubcategory('комерційні світильники')">
+                        <div class="wrapImg">
+                            <img src="../../../assets/images/category-icon/komerciyni.png">
+                        </div>
+                        <p>Комерційне світло</p>
+                        <i class="fas fa-angle-right"></i>
+                    </li>
+                    <li [routerLink]="[ '/menu/' + 'promotional_offers' ]" routerLinkActive="active" (click)="showNav()">
+                        <div class="wrapImg">
+                            <img src="../../../assets/images/category-icon/discount.png">
+                        </div>
+                        <p>Акції</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="shop">
+                <p>Магазин</p>
+                <ul>
+                    <li [routerLink]="[ '/about' ]" routerLinkActive="active" (click)="showNav()">
+                        <p>Про магазин</p>
+                    </li>
+                    <li [routerLink]="[ '/trademarks' ]" routerLinkActive="active" (click)="showNav()">
+                        <p>Торгові марки</p>
+                    </li>
+                    <li [routerLink]="[ '/delivery' ]" routerLinkActive="active" (click)="showNav()">
+                        <p>Доставка та оплата</p>
+                    </li>
+                    <li [routerLink]="[ '/guarantee' ]" routerLinkActive="active" (click)="showNav()">
+                        <p>Гарантія</p>
+                    </li>
+                    <li [routerLink]="[ '/discounts' ]" routerLinkActive="active" (click)="showNav()">
+                        <p>Знижки</p>
+                    </li>
+                    <li [routerLink]="[ '/contacts' ]" routerLinkActive="active" (click)="showNav()">
+                        <p>Контакти</p>
+                    </li>
+                    <li [routerLink]="[ '/blogs' ]" routerLinkActive="active" (click)="showNav()">
+                        <p>Блог</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="user">
+                <p>Користувач</p>
+                <ul>
+                    <li *ngIf="!checkUser" [routerLink]="[ '/login' ]" routerLinkActive="active" (click)="showNav()">
+                        <p>Вхід / Реєстрація</p>
+                    </li>
+                    <li *ngIf="checkUser" [routerLink]="[ '/profile' ]" routerLinkActive="active" (click)="showNav()">
+                        <p>Особистий кабінет</p>
+                    </li>
+                    <li [routerLink]="[ '/basket' ]" routerLinkActive="active" (click)="showNav()">
+                        <p>Кошик</p>
+                    </li>
+                    <li [routerLink]="[ '/compare' ]" routerLinkActive="active" (click)="showNav()">
+                        <p>Порівняння<span [textContent]="checkLocalStorage()?'('+compareCount+')':'(0)'"></span></p>
+                    </li>
+                    <li [routerLink]="[ '/wishlist' ]" routerLinkActive="active" (click)="showNav()">
+                        <p>Список бажань<span [textContent]="checkWishlist()?'('+wishlistCount+')':'(0)'"></span></p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="subcategory">
+            <ul>
+                <li class="collapse" (click)="backSubmenu()">
+                    <p><i class="fas fa-arrow-left"></i> Назад</p>
+                </li>
+                <li class="collapse" [routerLink]="[ '/menu/' + catLink ]" (click)="showNav()">
+                    <p>Переглянути всі</p>
+                </li>
+                <li *ngFor="let subC of arrSubcategory" [routerLink]="[ '/menu/' + catLink + '/' + subC.nameEN ]" routerLinkActive="active" (click)="showNav()">
+                    <p>{{ subC?.nameUA |mytitlecase }}</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="shadow" (click)="showNav()"></div>
+</div>

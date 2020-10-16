@@ -20,8 +20,16 @@ import { AdminAddComponent } from './admin/admin-add/admin-add.component';
 import { AdminTextPagesComponent } from './admin/admin-text-pages/admin-text-pages.component';
 import { AdminBlogComponent } from './admin/admin-blog/admin-blog.component';
 import { LoginComponent } from './login/login.component';
+import { ProductsComponent } from './pages/products/products.component';
 
 import { AuthGuard } from './shared/guards/auth.guard';
+import { ProductDetailsComponent } from './pages/product-details/product-details.component';
+import { BasketComponent } from './pages/basket/basket.component';
+import { AdminSliderComponent } from './admin/admin-slider/admin-slider.component';
+import { CompareComponent } from './pages/compare/compare.component';
+import { ProfileComponent } from './profile/profile.component';
+import { WishlistComponent } from './pages/wishlist/wishlist.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -33,16 +41,25 @@ const routes: Routes = [
   { path: 'discounts', component: DiscountsComponent },
   { path: 'contacts', component: ContactsComponent },
   { path: 'blogs', component: BlogsComponent },
+  { path: 'menu/:category', component: ProductsComponent },
+  { path: 'menu/:category/:subcategory', component: ProductsComponent },
+  { path: 'menu/:category/:id', component: ProductDetailsComponent },
+  { path: 'menu/:category/:subcategory/:id', component: ProductDetailsComponent },
+  { path: 'compare', component: CompareComponent },
+  { path: 'wishlist', component: WishlistComponent },
+  { path: 'basket', component: BasketComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'profile', component: ProfileComponent },
   {
     path: 'admin', component: AdminComponent, canActivate: [AuthGuard], children: [
-      { path: '', redirectTo: 'category', pathMatch: 'full' },
+      { path: '', redirectTo: 'orders', pathMatch: 'full' },
       { path: 'category', component: AdminCategoryComponent },
       { path: 'subcategory', component: AdminSubcategoryComponent },
       { path: 'products', component: AdminProductsComponent },
       { path: 'trademarks', component: AdminTrademarksComponent },
       { path: 'orders', component: AdminOrdersComponent },
       { path: 'blog', component: AdminBlogComponent },
+      { path: 'slider', component: AdminSliderComponent },
       { path: 'add', component: AdminAddComponent },
       { path: 'archive', component: AdminArchiveComponent },
       { path: 'textPages', component: AdminTextPagesComponent },

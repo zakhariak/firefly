@@ -3,12 +3,21 @@
   padding: 0;
   background-color: white;
 
-  .row {
+  .row.mainBody {
     margin: 0;
 
     .nav {
       background-color: grey;
       padding: 5px;
+    }
+
+    >.dNav {
+      display: block;
+    }
+
+    >.mNav {
+      width: 100%;
+      display: none;
     }
   }
 }
@@ -36,5 +45,25 @@
 .backHome {
   &:hover {
     color: #c80000 !important;
+  }
+}
+
+
+@media(max-width:1050px) {
+  .mainContainer {
+    >.row.mainBody {
+      >.dNav {
+        display: none;
+      }
+
+      >.mNav {
+        display: block;
+      }
+
+      .col-10 {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+      }
+    }
   }
 }

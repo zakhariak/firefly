@@ -19,7 +19,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="text-center p-0" *ngFor="let c of arrCategories let i = index" id="{{ i+1 }}">
+                <tr class="text-center p-0" *ngFor="let c of arrCategories | search:'nameUA':searchPlace let i = index"
+                    id="{{ i+1 }}">
                     <td>{{ i+1 }}</td>
                     <td>{{ c.nameUA }}</td>
                     <td>{{ c.nameEN }}</td>

@@ -73,13 +73,11 @@ export class AdminCategoryComponent implements OnInit {
       if (!this.editStatus) {
         delete newC.id;
         this.categoryService.postCategory({ ...newC }).then(() => {
-          console.log('category add');
         })
       } else {
         newC.id = this.cID
         this.categoryService.updateCategory({ ...newC });
         this.editStatus = false;
-        console.log('category edit');
       }
       this.modalRef.hide();
       this.resetForm();

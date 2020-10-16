@@ -1,0 +1,266 @@
+@import"../shared/styles-components/variables.scss";
+
+.mainContainer {
+  width: 100%;
+
+  >.title {
+    width: 100%;
+    text-align: center;
+    position: relative;
+
+    >h2 {
+      margin: 20px;
+      font-size: 36px;
+    }
+
+    >p {
+      width: 100px;
+      padding: 5px;
+      font-size: 20px;
+      color: $mainColor;
+      border: 1px solid rgb(230, 230, 230);
+      position: absolute;
+      top: 10px;
+      right: 50px;
+
+      &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+        border: 1px solid $mainColor;
+      }
+    }
+  }
+
+  >.body {
+    width: 100%;
+
+    >.userInfo {
+      width: 100%;
+      padding: 20px;
+      display: flex;
+
+      >.userForm {
+        width: 50%;
+        padding: 10px 100px;
+
+        >h3 {
+          font-size: 20px;
+          margin-bottom: 20px;
+          padding: 10px;
+          background-color: rgb(230, 230, 230);
+        }
+
+        >div.inputWrapper {
+          width: 100%;
+          position: relative;
+          font-size: 14px;
+          padding-top: 20px;
+          margin-bottom: 20px;
+
+          input,
+          textarea {
+            border: none;
+            appearance: none;
+            background: #f2f2f2;
+            padding: 12px;
+            border-radius: 3px;
+            width: 100%;
+            height: 100%;
+            outline: none;
+            font-size: 14px;
+            color: $mainDTxtColor;
+            border-radius: 0px;
+            border: 2px solid $bdColor;
+            transition: border-color 0.3s ease;
+
+            &:focus {
+              border-color: $mainColor;
+              transition-delay: 0.1s;
+
+              +p.placeholder {
+                padding: 0 5px;
+                left: 8px;
+                color: $mainColor;
+                transition: padding 0.5 ease;
+              }
+            }
+          }
+
+          textarea {
+            min-height: 150px;
+          }
+
+          .placeholder {
+            padding: 0;
+            position: absolute;
+            left: 12px;
+            top: 15px;
+            color: #f88e8e;
+            font-size: 12px;
+            background: #fff;
+            transition: padding 0.5 ease;
+
+            span {
+              color: $mainColor;
+            }
+          }
+
+          .phTextarea {
+            top: 15px;
+          }
+
+          .txtAlarm {
+            height: 24px;
+            font-size: 12px;
+            margin-right: auto;
+            padding: 0 5px;
+            color: red;
+            position: relative;
+          }
+        }
+      }
+
+      >.wishList {
+        width: 50%;
+        padding: 10px;
+        border: 1px solid #000;
+
+        >h3 {
+          width: 100%;
+          padding: 10px;
+          font-size: 20px;
+          margin-bottom: 20px;
+          background-color: rgb(230, 230, 230);
+        }
+
+        >table {
+          width: 100%;
+
+          >tr {
+
+            th,
+            td {
+              height: 40px;
+              padding: 5px;
+            }
+
+            img {
+              height: 40px;
+              width: 40px;
+            }
+
+            &:nth-of-type(2n) {
+              background-color: rgb(230, 230, 230);
+            }
+
+            button {
+              margin: 1px;
+              padding: 3px;
+              outline: none;
+              border: 1px solid rgb(230, 230, 230);
+              background-color: rgb(255, 105, 59);
+              color: white;
+
+              &:hover {
+                background-color: rgb(255, 61, 2);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    >.orderHistory {
+      width: 100%;
+      padding: 20px 100px;
+
+      >h3 {
+        width: 100%;
+        padding: 10px;
+        font-size: 24px;
+        background-color: rgb(230, 230, 230);
+        text-align: center;
+        cursor: pointer;
+
+        >span {
+          margin: 0 10px;
+
+          >i {
+            transition: transform 0.3s ease;
+          }
+        }
+      }
+
+      >table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0 10px;
+        padding: 10px;
+        display: none;
+
+        >tr {
+          width: inherit;
+          height: 60px;
+
+          &:nth-child(1) {
+            background-color: #f88e8e;
+          }
+
+          &:nth-child(2n) {
+            background-color: rgb(231, 231, 231);
+          }
+
+          >th {
+            padding: 10px;
+            text-align: center;
+            vertical-align: middle;
+          }
+
+          >td {
+            text-align: center;
+            vertical-align: middle;
+
+            >input {
+              border: 1px solid #f88e8e;
+              padding: 5px;
+
+              &:hover {
+                color: $mainColor;
+                border-color: $mainColor;
+                transform: scale(1.1);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+@media(max-width:1050px) {
+  .mainContainer>.body>.userInfo {
+    display: block;
+
+    >.userForm {
+      width: 100%;
+    }
+
+    >.wishList {
+      width: 100%;
+    }
+
+  }
+}
+
+@media(max-width:800px) {
+  .mainContainer>.title {
+    >h2 {
+      font-size: 24px;
+    }
+
+    >p {
+      width: 70px;
+    }
+  }
+}

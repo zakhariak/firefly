@@ -1,0 +1,105 @@
+<div class="myContainer">
+    <div *ngIf="!emptyBasket" class="notEmptyBox">
+        <h1>Оформлення замовлення</h1>
+        <div class="orderBlock">
+            <div class="userForm">
+                <div class="title">
+                    <h3>Форма для заповнення</h3>
+                </div>
+                <form #orderForm="ngForm" novalidate (submit)="addOrder(orderForm)">
+                    <div class="lastName">
+                        <h3 class="txtPlHolder">Прізвище<span>*</span></h3>
+                        <input type="text" name="lastName" [(ngModel)]="lastName" #lName="ngModel"
+                            [pattern]="patternName" (focus)="focusEvent($event)" (blur)="focusEvent($event)"
+                            autocomplete="off">
+                        <p *ngIf="lName.errors?.pattern" class="txtAlarm">Перевірте прізвище</p>
+                    </div>
+                    <div class="inName">
+                        <h3 class="txtPlHolder">Ім'я<span>*</span></h3>
+                        <input type="text" name="firstName" [(ngModel)]="firstName" #fName="ngModel"
+                            [pattern]="patternName" (focus)="focusEvent($event)" (blur)="focusEvent($event)"
+                            autocomplete="off">
+                        <p *ngIf="fName.errors?.pattern" class="txtAlarm">Перевірте імя</p>
+                    </div>
+                    <div class="inEmail">
+                        <h3 class="txtPlHolder">E-mail<span>*</span></h3>
+                        <input type="text" name="email" [(ngModel)]="email" #mEmail="ngModel" [pattern]="patternEmail"
+                            (focus)="focusEvent($event)" (blur)="focusEvent($event)" autocomplete="off">
+                        <p *ngIf="mEmail.errors?.pattern" class="txtAlarm">Перевірте емейл</p>
+                    </div>
+                    <div class="inPhone">
+                        <h3 class="txtPlHolder">Ваш номер телефону<span>*</span></h3>
+                        <input type="text" class="tel" name="phone" [(ngModel)]="phone"
+                            [ngClass]="!blind?'colorWhite':''" [showMaskTyped]="true" prefix="+38"
+                            mask="(000)-00-00-000" (focus)="focusEvent($event)" (blur)="focusEvent($event)" value="0">
+                        <p *ngIf="!alertphone" class="txtAlarm">Перевірте номер телефону</p>
+                    </div>
+                    <div>
+                        <select class="select" [(ngModel)]="delivery" name="delivery">
+                            <option disabled>Спосіб доставки</option>
+                            <option>Самовивіз у Львові</option>
+                            <option>Доставка Новою Поштою</option>
+                            <option>Доставка іншим перевізником</option>
+                        </select>
+                    </div>
+                    <div>
+                        <textarea [(ngModel)]="comments" name="comments" maxlength="256" cols="30" rows="15"
+                            placeholder="Ваш коментар"></textarea>
+                    </div>
+                    <input type="submit" value="Оформити" class="btnSignUp" [disabled]="checkForm()">
+                </form>
+            </div>
+            <div class="orderDetails">
+                <div class="detailsBody">
+                    <div class="title">
+                        <h3>Деталі замовлення</h3>
+                    </div>
+                    <table>
+                        <tr class="bb">
+                            <th>№</th>
+                            <th></th>
+                            <th>Назва</th>
+                            <th>Кількість</th>
+                            <th>Ціна</th>
+                        </tr>
+                        <tr *ngFor="let prod of orders let i = index" class="bb">
+                            <td>{{ i+1 }}</td>
+                            <td>
+                                <img src="{{prod.image}}" alt="{{ prod.name }}"
+                                    [routerLink]="[ '/menu/'+prod.category.nameEN + '/' + prod.subcategory.nameEN, prod.id ]">
+                            </td>
+                            <td>
+                                <p class="name"
+                                    [routerLink]="[ '/menu/'+prod.category.nameEN + '/' + prod.subcategory.nameEN, prod.id ]">
+                                    {{ prod.name }}</p>
+                            </td>
+                            <td>
+                                <app-product-count [product]="prod"></app-product-count>
+                            </td>
+                            <td>
+                                <p
+                                    [textContent]="(prod.discountPercent !== 0)?calcPrice(prod.price, prod.discountPercent)*prod.count+' грн':prod.price*prod.count+' грн'">
+                                </p>
+                                <div class="btnDelete" (click)="deleteBasket(prod)"><i class="fas fa-times"></i></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="allSum">Загальна сума:</td>
+                            <td>
+                                <p [textContent]="sumPrice()+' грн'"></p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="emptyBasket" class="emptyBox">
+        <h1>Ваш кошик порожній</h1>
+        <button [routerLink]="[ '/home']">Перейти до
+            покупок</button>
+    </div>
+</div>

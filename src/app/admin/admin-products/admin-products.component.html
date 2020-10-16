@@ -12,6 +12,10 @@
                     <th scope="col">№</th>
                     <th scope="col">Назва товару<span></span>
                     </th>
+                    <th scope="col">Категорія<span></span>
+                    </th>
+                    <th scope="col">Підкатегорія<span></span>
+                    </th>
                     <th scope="col">Ціна товару<span></span>
                     </th>
                     <th scope="col">Час доставки<span></span>
@@ -21,16 +25,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="text-center p-0" *ngFor="let p of arrProducts let i = index" id="{{ i+1 }}">
-                    <td>{{ i+1 }}</td>
+                <tr class="text-center p-0" *ngFor="let p of arrProducts | search:'name':searchPlace let i = index" id="{{ i+1 }}">
+                    <td (click)="abs(p.date.seconds)">{{ i+1 }}</td>
                     <td>{{ p.name }}</td>
+                    <td>{{ p.category.nameUA | mytitlecase }}</td>
+                    <td>{{ p.subcategory.nameUA | mytitlecase }}</td>
                     <td>{{ p.price }}</td>
                     <td>{{ p.deliveryDays }}</td>
                     <td><button type="button" class="btn btn-warning"
-                            (click)="editCategory(template, p)">Редагувати</button>
+                            (click)="editProduct(template, p)">Редагувати</button>
                     </td>
                     <td><button type="button" class="btn btn-danger"
-                            (click)="deleteModal(template, p)">Видалити</button>
+                            (click)="openDeleteModal(deleteModal, p)">Видалити</button>
                     </td>
                 </tr>
             </tbody>
@@ -40,7 +46,7 @@
 
 <ng-template #template>
     <div class="modal-header">
-        <h4 class="modal-title pull-left" (click)="aaa()">Добавити товар</h4>
+        <h4 class="modal-title pull-left" (click)="some()">Добавити товар</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -52,7 +58,7 @@
             <select class="form-control col mx-2" [(ngModel)]="categoryName" name="categoryName"
                 (change)="setCategory()">
                 <option disabled>Виберіть категорію</option>
-                <option *ngFor="let category of arrCategory">
+                <option *ngFor="let category of arrCategory | orderBy:{simple:true,value:'nameUA'}">
                     {{ category.nameUA | titlecase }}
                 </option>
             </select>
@@ -60,13 +66,13 @@
                 (change)="setSubcategory()">
                 <option [textContent]="arrSubcategory == 0 ? 'Виберіть категорію' : 'Виберіть підкатегорію'" disabled>
                 </option>
-                <option *ngFor="let subcategory of arrSubcategory">
+                <option *ngFor="let subcategory of arrSubcategory | orderBy:{simple:true,value:'nameUA'}">
                     {{ subcategory.nameUA | titlecase }}
                 </option>
             </select>
             <select class="form-control col mx-2" [(ngModel)]="brandName" name="brandName" (change)="setBrand()">
                 <option disabled>Виберіть торгову марку</option>
-                <option *ngFor="let brand of arrBrands">
+                <option *ngFor="let brand of arrBrands | orderBy:{simple:true,value:'name'}">
                     {{ brand.name | titlecase }}
                 </option>
             </select>
@@ -83,7 +89,8 @@
                         <input id="checkBox" type="checkbox" name="isActive" [(ngModel)]="isActive">
                     </div>
                 </div>
-                <input type="text" class="form-control" placeholder="Процент знижки" [disabled]="!isActive">
+                <input type="text" class="form-control" placeholder="Процент знижки" [disabled]="!isActive"
+                    name="discountPercent" [(ngModel)]="discountPercent">
             </div>
         </div>
         <div class="row col-12">
@@ -93,9 +100,9 @@
             <div class="character col-8">
                 <p class="character_title py-1">Характеристики товару</p>
                 <div class="character_body" id="selectsCh">
-                    <label *ngFor="let char of arrChar">
-                        <p>{{ char.name }}</p>
-                        <select class="form-control col mx-2" (change)="showA(char.nameEN, $event.target.value)">
+                    <label *ngFor="let char of arrChar | orderBy:{simple:true,value:'nameUA'}">
+                        <p id="{{ char.nameEN }}">{{ char.nameUA }}</p>
+                        <select class="form-control col mx-2">
                             <option selected disabled>-</option>
                             <option *ngFor="let item of char.select" (onclick)="addSelect()">{{ item }}</option>
                         </select>

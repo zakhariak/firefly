@@ -1,17 +1,51 @@
-<div class="container m-5">
+<div class=" m-5">
     <h1 class="title my-2">Вхід</h1>
-    <form [formGroup]="loginForm" novalidate (ngSubmit)="submit()">
-        <div class="form-group">
-            <label for="userEmail">Електронна адреса</label>
-            <input type="email" class="form-control" id="userEmail" formControlName="userEmail">
-            <div *ngIf="loginForm.controls['userEmail'].invalid && loginForm.controls['userEmail'].touched">
-                перевір пошту
+    <div *ngIf="!signup">
+        <div class="main">
+            <div class="inputWrapper">
+                <input type="text" name="email" [(ngModel)]="email" #userEmail="ngModel" [pattern]="patternEmail"
+                    autocomplete="off">
+                <p class="placeholder">Електронна адреса<span>*</span></p>
+                <p *ngIf="userEmail.errors?.pattern" class="txtAlarm">Перевірте email</p>
             </div>
+            <div class="inputWrapper">
+                <input type="text" name="password" [(ngModel)]="password" #userPassword="ngModel"
+                    [pattern]="patternPassword" autocomplete="off">
+                <p class="placeholder">Пароль<span>*</span></p>
+                <p *ngIf="userPassword.errors?.pattern" class="txtAlarm">Перевірте пароль</p>
+            </div>
+            <p (click)="signUp()">Регістрація</p>
         </div>
-        <div class="form-group">
-            <label for="userPassword">Пароль</label>
-            <input type="password" class="form-control" id="userPassword" formControlName="userPassword">
+    </div>
+    <form *ngIf="signup" #registerForm="ngForm" novalidate (submit)="register(registerForm)">
+        <div class="main">
+            <div class="inputWrapper">
+                <input type="text" name="name" [(ngModel)]="name" #userName="ngModel" [pattern]="patternName"
+                    autocomplete="off">
+                <p class="placeholder">Ім'я<span>*</span></p>
+                <p *ngIf="userName.errors?.pattern" class="txtAlarm">Перевірте ім'я</p>
+            </div>
+            <div class="inputWrapper">
+                <input type="email" name="email" [(ngModel)]="email" #userEmail="ngModel" [pattern]="patternEmail"
+                    autocomplete="off">
+                <p class="placeholder">Електронна адреса<span>*</span></p>
+                <p *ngIf="userEmail.errors?.pattern" class="txtAlarm">Перевірте email</p>
+            </div>
+            <div class="inputWrapper">
+                <input type="text" name="password" [(ngModel)]="password" #userPassword="ngModel"
+                    [pattern]="patternPassword" autocomplete="off">
+                <p class="placeholder">Пароль<span>*</span></p>
+                <p *ngIf="userPassword.errors?.pattern" class="txtAlarm">Перевірте пароль</p>
+            </div>
+            <p (click)="signUp()">Увійти в кабінет</p>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="footer">
+            <input type="button" value="Закрити" class="footer_close" (click)="closeModal('sign-in')">
+            <input type="submit" class="footer_sign" value="Зареєструватись" [disabled]="checkForm()">
+        </div>
     </form>
+    <div *ngIf="!signup" class="footer">
+        <input type="button" value="Закрити" class="footer_close" (click)="closeModal('sign-in')">
+        <input type="button" class="footer_sign" value="Увійти" (click)="signIn()">
+    </div>
 </div>

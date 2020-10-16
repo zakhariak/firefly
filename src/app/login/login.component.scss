@@ -1,4 +1,125 @@
+@import"../shared/styles-components/variables.scss";
+
 .title {
   font-size: 30px;
   text-align: center;
+}
+
+.main {
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: sans-serif;
+  font-size: 16px;
+
+  div.inputWrapper {
+    width: 100%;
+    position: relative;
+    font-size: 14px;
+    padding-top: 20px;
+    margin-bottom: 20px;
+
+    input,
+    textarea {
+      border: none;
+      appearance: none;
+      background: #f2f2f2;
+      padding: 12px;
+      border-radius: 3px;
+      width: 100%;
+      height: 100%;
+      outline: none;
+      font-size: 14px;
+      color: $mainDTxtColor;
+      border-radius: 0px;
+      border: 2px solid $bdColor;
+      transition: border-color 0.3s ease;
+
+      &:focus {
+        border-color: $mainColor;
+        transition-delay: 0.1s;
+
+        +p.placeholder {
+          padding: 0 5px;
+          left: 8px;
+          color: $mainColor;
+          transition: padding 0.5 ease;
+        }
+      }
+    }
+
+    textarea {
+      min-height: 150px;
+    }
+
+    .placeholder {
+      padding: 0;
+      position: absolute;
+      left: 12px;
+      top: 15px;
+      color: #f88e8e;
+      font-size: 12px;
+      background: #fff;
+      transition: padding 0.5 ease;
+
+      span {
+        color: $mainColor;
+      }
+    }
+
+    .phTextarea {
+      top: 15px;
+    }
+
+    .txtAlarm {
+      height: 24px;
+      font-size: 12px;
+      margin-right: auto;
+      padding: 0 5px;
+      color: red;
+      position: relative;
+    }
+  }
+
+  >p {
+    font-size: 12px;
+    color: $mainColor;
+    cursor: pointer;
+    text-align: left;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.footer {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-around;
+
+  input[type=button],
+  input[type=submit] {
+    height: 34px;
+    padding: 5px 10px;
+    outline: none;
+    color: #aaa;
+    border: 1px solid $bdColor;
+
+    &:hover {
+      color: black;
+    }
+
+    &:active {
+      box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  &_sign {
+    color: white !important;
+    background-color: $mainColor;
+  }
 }

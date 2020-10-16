@@ -4,7 +4,6 @@
         <div class="header__container_left">
             <div class="header__container_left-logo">
                 <a [routerLink]="[ '/home' ]"><img src="../../../assets/images/LOGO.png" alt="logo"></a>
-
             </div>
             <div class="header__container_left_contacts">
                 <div class="header__container_left_contacts_number">
@@ -17,7 +16,7 @@
                         </ul>
                     </div>
                 </div>
-                <a class="header__container_left_contacts_callback" (click)="openModal()">
+                <a class="header__container_left_contacts_callback" (click)="openModal('custom-modal-1')">
                     <div class="header__container_left_contacts_callback_icon">
                         <i class="fas fa-phone"></i>
                     </div>
@@ -35,52 +34,124 @@
             <div class="header__container_right_block">
                 <div class="header__container_right_block_search">
                     <label class="header__container_right_block_search_form">
-                        <input class="header__container_right_block_search_form_txt" type=" text">
+                        <input class="header__container_right_block_search_form_txt" type=" text" [(ngModel)]="search"
+                            name="search" (keyup)="checkKeyUp()" autocomplete="off">
                         <button class="header__container_right_block_search_form_btn">
                             <i class="fas fa-search"></i>
                         </button>
                     </label>
+                    <div *ngIf="showSearchBlock" class="searchblock">
+                        <div class="close">
+                            <p (click)="clearInputSearch()">Закрити</p>
+                        </div>
+                        <a class="prodCard" *ngFor="let pr of products | search:'name':search"
+                            [routerLink]="[ '/menu/'+pr.category.nameEN + '/' + pr.subcategory.nameEN, pr.id ]"
+                            (click)="clearInputSearch()">
+                            <div class="img">
+                                <img src="{{ pr.image }}" alt="">
+                            </div>
+                            <div class="name">
+                                <p>{{ pr.name }}</p>
+                            </div>
+                        </a>
+                    </div>
                 </div>
                 <div class="header__container_right_block_basket">
-                    <label class="header__container_right_block_basket_icon">
+                    <label class="header__container_right_block_basket_icon" [routerLink]="[ '/basket' ]" id="basket">
                         <i class="fas fa-shopping-basket"></i>
-                        <span>10</span>
+                        <span [textContent]="checkBasket()? productsCount:'0'"></span>
                     </label>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="mheader">
+        <div class="mheader__container">
+            <div class=" mheader__container_left">
+                <app-mobile-nav></app-mobile-nav>
+            </div>
+            <div class="mheader__container_center">
+                <div class="header__container_left-logo">
+                    <a [routerLink]="[ '/home' ]"><img src="../../../assets/images/LOGO.png" alt="logo"></a>
+                </div>
+            </div>
+            <div class="mheader__container_right">
+                <div class="header__container_left_contacts_number">
+                    <div><i class="fas fa-phone"></i></div>
+                    <div class="numbers">
+                        <ul>
+                            <li><a href="tel:+38 050 000 00 00">+38 050 000 00 00</a></li>
+                            <li><a href="tel:+38 097 000 00 00">+38 097 000 00 00</a></li>
+                            <li><a href="tel:+38 063 000 00 00">+38 063 000 00 00</a></li>
+                            <li><a href="tel:+38 032 000 00 00">+38 032 000 00 00</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="header__container_right_block_basket">
+                    <label class="header__container_right_block_basket_icon" [routerLink]="[ '/basket' ]" id="basket">
+                        <i class="fas fa-shopping-basket"></i>
+                        <span [textContent]="checkBasket()? productsCount:'0'"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="header__container_right_block_search">
+            <label class="header__container_right_block_search_form">
+                <input class="header__container_right_block_search_form_txt" type=" text" [(ngModel)]="search"
+                    name="search" (keyup)="checkKeyUp()" autocomplete="off">
+                <button class="header__container_right_block_search_form_btn">
+                    <i class="fas fa-search"></i>Пошук
+                </button>
+            </label>
+            <div *ngIf="showSearchBlock" class="searchblock">
+                <div class="close">
+                    <p (click)="clearInputSearch()">Закрити</p>
+                </div>
+                <a class="prodCard" *ngFor="let pr of products | search:'name':search"
+                    [routerLink]="[ '/menu/'+pr.category.nameEN + '/' + pr.subcategory.nameEN, pr.id ]"
+                    (click)="clearInputSearch()">
+                    <div class="img">
+                        <img src="{{ pr.image }}" alt="">
+                    </div>
+                    <div class="name">
+                        <p>{{ pr.name }}</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
     </div>
 </div>
 
 
 <!-- modal window -->
 
-<div *ngIf="modal" id="mypopup" class="popup">
-    <div class="popup__body">
-        <div class="popup__body_content">
-            <div class="popup__body_content_header">
-                <p class="popup__body_content_header_title">Замовити зворотній дзвінок</p>
-                <span class="popup__body_content_header_close" (click)="closeModal()"><i
-                        class="fas fa-times"></i></span>
+<app-mymodal id="custom-modal-1">
+    <div class="modal_header">
+        <p class="modal_header_title">Замовити зворотній дзвінок</p>
+        <span class="modal_header_close" (click)="closeModal('custom-modal-1')"><i class="fas fa-times"></i></span>
+    </div>
+    <form #callMeForm="ngForm" novalidate (submit)="callMe(callMeForm)">
+        <div class="modal_main">
+            <div class="inputWrapper">
+                <input type="text" name="name" [(ngModel)]="name" #userName="ngModel" [pattern]="patternName"
+                    autocomplete="off">
+                <p class="placeholder">Ім'я<span>*</span></p>
+                <p *ngIf="userName.errors?.pattern" class="txtAlarm">Перевірте ім'я</p>
             </div>
-            <div class="popup__body_content_main">
-                <label class="inputWrapper">
-                    <input type="text" name="name" [(ngModel)]="name" required>
-                    <span class="placeholder">Імя<span>*</span></span>
-                </label>
-                <label class="inputWrapper">
-                    <input type="text" name="phone" [(ngModel)]="phone" required>
-                    <span class="placeholder">Ваш телефон<span>*</span></span>
-                </label>
-                <label class="inputWrapper">
-                    <textarea name="message" [(ngModel)]="message" required></textarea>
-                    <span class="placeholder phTextarea">Повідомлення</span>
-                </label>
+            <div class="inputWrapper">
+                <input type="text" class="tel" name="phone" [(ngModel)]="phone" [ngClass]="!blind?'colorWhite':''"
+                    [showMaskTyped]="true" prefix="+38" mask="(000)-00-00-000" value="0">
+                <p class="placeholder">Ваш телефон<span>*</span></p>
             </div>
-            <div class="popup__body_content_footer">
-                <button class="popup__body_content_footer_close" (click)="closeModal()">Закрити</button>
-                <button class="popup__body_content_footer_callMe" (click)="postMessage()">Передзвоніть мені</button>
+            <div class="inputWrapper">
+                <textarea name="comment" [(ngModel)]="comment"></textarea>
+                <p class="placeholder phTextarea">Повідомлення<span>*</span></p>
             </div>
         </div>
-    </div>
-</div>
+        <div class="modal_footer">
+            <input type="button" value="Закрити" class="modal_footer_close" (click)="closeModal('custom-modal-1')">
+            <input type="submit" class="modal_footer_callMe" value="Передзвоніть мені">
+        </div>
+    </form>
+</app-mymodal>

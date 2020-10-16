@@ -1,1 +1,92 @@
-<p>profile works!</p>
+<div class="mainContainer">
+    <div class="title">
+        <h2>Особистий кабінет</h2>
+        <p (click)="signOut()">Вийти</p>
+    </div>
+    <div class="body">
+        <div class="userInfo">
+            <div class="userForm">
+                <h3>Персональні дані</h3>
+                <div class="inputWrapper">
+                    <input type="text" name="firstName" [(ngModel)]="firstName" #userFirstName="ngModel"
+                        [pattern]="patternName" autocomplete="off" [readonly]="readOnly">
+                    <p class="placeholder">Ім'я<span>*</span></p>
+                    <p *ngIf="userFirstName.errors?.pattern" class="txtAlarm">Перевірте ім'я</p>
+                </div>
+                <div class="inputWrapper">
+                    <input type="text" name="lastName" [(ngModel)]="lastName" #userLastName="ngModel"
+                        [pattern]="patternName" autocomplete="off" [readonly]="readOnly">
+                    <p class="placeholder">Прізвище<span>*</span></p>
+                    <p *ngIf="userLastName.errors?.pattern" class="txtAlarm">Перевірте прізвище</p>
+                </div>
+                <div class="inputWrapper">
+                    <input type="text" name="email" [(ngModel)]="email" #userEmail="ngModel" [pattern]="patternEmail"
+                        autocomplete="off" [readonly]="readOnly">
+                    <p class="placeholder">Електронна адреса<span>*</span></p>
+                    <p *ngIf="userEmail.errors?.pattern" class="txtAlarm">Перевірте електронну адресу</p>
+                </div>
+                <div class="inputWrapper">
+                    <input *ngIf="readOnly" type="text" name="phone" [(ngModel)]="phone" autocomplete="off"
+                        [readonly]="readOnly">
+                    <input *ngIf="!readOnly" type="text" name="mainPhone" [(ngModel)]="mainPhone" #userPhone="ngModel"
+                        [showMaskTyped]="true" prefix="+38" mask="(000)-00-00-000" autocomplete="off">
+                    <p class="placeholder">Телефон<span>*</span></p>
+                </div>
+                <input type="button" [value]="readOnly?'Редагувати':'Зберегти'" (click)="editSave()">
+            </div>
+            <div class="wishList">
+                <h3>Список бажань</h3>
+                <table>
+                    <tr>
+                        <th></th>
+                        <th>Назва</th>
+                        <th>Ціна</th>
+                        <th>Детальніше</th>
+                    </tr>
+                    <tr *ngFor="let prod of userWishlist">
+                        <td><img src="{{ prod.image }}" alt="{{ prod.name }}"></td>
+                        <td>
+                            <p>{{ prod.name }}</p>
+                        </td>
+                        <td>
+                            <p
+                                [textContent]="prod.discountPercent == 0?prod.price:calcPrice(prod.price, prod.discountPercent)">
+                            </p>
+                        </td>
+                        <td>
+                            <button
+                                [routerLink]="[ '/menu/'+prod.category.nameEN + '/' + prod.subcategory.nameEN, prod.id ]">Деталі</button>
+                            <button class="deleteWishlist" (click)="deleteWithWishlist(prod)">Видалити</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="orderHistory">
+            <h3 (click)="showOrders($event)"><span><i class="fas fa-angle-down"></i></span> Історія замовлень <span><i
+                        class="fas fa-angle-down"></i></span></h3>
+            <table>
+                <tr>
+                    <th>Дата замовлення</th>
+                    <th>Статус замовлення</th>
+                    <th>Загальна сума</th>
+                    <th>Деталі замолення</th>
+                </tr>
+                <tr *ngFor="let order of userOrders">
+                    <td>
+                        <p>{{ order.dateOrder }}</p>
+                    </td>
+                    <td>
+                        <p>{{ order.status }}</p>
+                    </td>
+                    <td>
+                        <p>{{ sumPrice(order) }} грн</p>
+                    </td>
+                    <td>
+                        <input type="button" value="деталі">
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

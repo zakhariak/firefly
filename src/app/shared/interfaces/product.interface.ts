@@ -1,10 +1,10 @@
 import { ISubcategory } from './subcategory.interface';
 import { ICategory } from './category.interface';
 import { ITrademarks } from './trademarks.interface';
-import { IProdCharacter } from './product-characteristics.interface';
 
 export interface IProduct {
-    id: any;
+    id: string;
+    date: Date;
     productСode: number;
     name: string;
     subcategory: ISubcategory;
@@ -15,6 +15,7 @@ export interface IProduct {
     rating: Array<number>;
     deliveryDays: number;
     discountPercent: number;
-    characteristics?: Array<IProdCharacter>;
-
+    quantityInStock: number;
+    count: number;
+    characteristics?: Array<any>;
 }

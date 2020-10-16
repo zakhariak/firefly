@@ -1,0 +1,368 @@
+.myContainer {
+  width: 100%;
+  padding: 20px;
+
+  &>.notEmptyBox {
+    &>h1 {
+      width: 100%;
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    &>.orderBlock {
+      width: 100%;
+      margin-top: 20px;
+      display: flex;
+
+      &>.userForm {
+        width: 40%;
+        padding: 0 20px;
+        border-right: 1px solid rgb(204, 204, 204);
+
+        &>form {
+          width: 100%;
+          padding: 20px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: center;
+
+          &>div {
+            width: 100%;
+            height: 86px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            position: relative;
+
+            .txtPlHolder {
+              color: black;
+              margin: 5px 15px;
+              font-size: 15px;
+              position: absolute;
+              top: 13px;
+              left: 1px;
+              animation-name: none;
+              animation-duration: 0.1s;
+              animation-iteration-count: 1;
+              animation-fill-mode: forwards;
+              animation-timing-function: ease-in;
+              z-index: 20;
+
+              &>span {
+                color: rgb(206, 49, 49);
+              }
+
+              @keyframes moveOn {
+                0% {
+                  top: 13px;
+                  left: 1px;
+                }
+
+                50% {
+                  color: lightslategray;
+                  font-size: 14px;
+                }
+
+                100% {
+                  top: 1px;
+                  left: 1px;
+                  color: lightslategray;
+                  font-size: 13px;
+                }
+              }
+
+              @keyframes moveOff {
+                0% {
+
+                  top: 1px;
+                  left: 1px;
+                  color: lightslategray;
+                  font-size: 13px;
+                }
+
+                50% {
+                  color: lightslategray;
+                  font-size: 14px;
+                }
+
+                100% {
+                  top: 13px;
+                  left: 1px;
+                }
+              }
+            }
+
+            &>input,
+            &>select {
+              width: 100%;
+              height: 56px;
+              margin-bottom: 2px;
+              padding-left: 15px;
+              font-size: 15px;
+              outline: none;
+              border: 1px solid lightgray;
+              border-radius: 5px;
+
+              &:focus {
+                box-shadow: 0 0 0.1em 3px #df7234;
+              }
+            }
+
+            &>textarea {
+              width: 100%;
+              min-height: 56px;
+              margin-bottom: 20px;
+              padding-left: 15px;
+              font-size: 15px;
+              outline: none;
+              border: 1px solid lightgray;
+              border-radius: 5px;
+            }
+
+            &>.txtAlarm {
+              height: 24px;
+              font-size: 12px;
+              margin-right: auto;
+              padding: 0 5px;
+              color: red;
+              position: relative;
+            }
+          }
+        }
+
+        .btnSignUp {
+          width: 100%;
+          height: 56px;
+          padding: 0;
+          margin: 0;
+          margin-bottom: 2px;
+          padding-left: 15px;
+          font-size: 15px;
+          color: white;
+          background-color: #f5772e;
+          outline: none;
+          border: 1px solid lightgray;
+          border-radius: 5px;
+
+          &:focus {
+            box-shadow: 0 0 0.1em 3px #df7234;
+          }
+
+          &:hover {
+            background-color: #d15309;
+            border-color: #b64808;
+          }
+
+          &:disabled,
+          &[disabled] {
+            border: 1px solid #fa9e69;
+            background-color: #fa9e69;
+          }
+        }
+      }
+
+      .title {
+        width: 100%;
+        height: 60px;
+        padding: 20px 30px;
+        background-color: rgb(221, 221, 221);
+
+        h3 {
+          font-size: 16px;
+          font-weight: bold;
+        }
+      }
+
+      &>.orderDetails {
+        width: 60%;
+        padding: 0 20px;
+        display: flex;
+        justify-content: center;
+
+        &>.detailsBody {
+          width: 100%;
+          padding-bottom: 20px;
+
+
+
+          &>table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+
+            &>tr {
+              margin: 10px 0;
+
+              &>th {
+                padding-left: 5px;
+
+                &:nth-child(1) {
+                  width: 5%;
+                  text-align: center;
+                }
+
+                &:nth-child(2) {
+                  width: 15%;
+                }
+
+                &:nth-child(3) {
+                  width: 30%;
+                }
+
+                &:nth-child(4) {
+                  width: 20%;
+                  text-align: center;
+                }
+
+                &:nth-child(5) {
+                  width: 15%;
+                }
+
+                &:nth-child(6) {
+                  width: 15%;
+                }
+              }
+
+              &>td {
+                padding-left: 10px;
+
+                &:nth-child(5) {
+                  position: relative;
+                }
+
+                &>div {
+                  width: 23px;
+                  height: 23px;
+                  border-bottom-left-radius: 10px;
+                  background-color: rgb(209, 209, 209);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  position: absolute;
+                  top: 0;
+                  right: 0;
+                  cursor: pointer;
+
+                  &:hover i {
+                    opacity: 100;
+                    transition: opacity 0.3 ease;
+                  }
+
+                  &:active i {
+                    transform: scale(0.9);
+                  }
+
+                  i {
+                    opacity: 0;
+                    transition: opacity 0.3 ease;
+                    color: white;
+                  }
+                }
+              }
+
+              .allSum {
+                padding: 10px 0;
+                text-align: right;
+              }
+
+              .name {
+                cursor: pointer;
+
+                &:hover {
+                  color: #df7234;
+                }
+              }
+
+              img {
+                width: 80px;
+                height: 80px;
+                cursor: pointer;
+              }
+
+            }
+
+          }
+        }
+
+      }
+    }
+  }
+
+  &>.emptyBox {
+    width: 100%;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    &>h1 {
+      margin-bottom: 20px;
+      font-size: 32px;
+    }
+
+    &>button {
+      width: 200px;
+      height: 34px;
+      outline: none;
+      border: none;
+      background-color: #df7234;
+
+      &:active {
+        box-shadow: inset 0 0 1px 2px rgba(255, 255, 255, 0.5);
+      }
+    }
+  }
+}
+
+tr.bb td,
+tr.bb th {
+  padding: 20px 0;
+  background-color: rgb(233, 233, 233);
+}
+
+
+.borderRed {
+  border-color: red;
+}
+
+.colorWhite {
+  color: white;
+}
+
+@media (max-width:1050px) {
+  .myContainer>.notEmptyBox>.orderBlock {
+    display: block;
+
+    >.userForm {
+      width: 100%;
+    }
+
+    >.orderDetails {
+      width: 100%;
+      font-size: 12px;
+
+      >.detailsBody>table {
+        >tr {
+          img {
+            width: 50px;
+            height: 50px;
+          }
+
+          >td {
+            padding-left: 0px;
+
+            app-product-count {
+              width: 100px;
+              >div.productCountWrapper {
+                padding: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,1 +1,43 @@
-<p>wishlist works!</p>
+<div class="mainContainer">
+    <div class="title">
+        <h3>Список бажань</h3>
+    </div>
+    <div class="products">
+        <div *ngIf="wishlist.length == 0" class="notFound">
+            <h3>Список пустий</h3>
+        </div>
+        <div class="prodCard" *ngFor="let prod of wishlist | paginate: { itemsPerPage: 9, currentPage: p }">
+            <div class="prodWrap">
+                <div *ngIf="prod.discountPercent !== 0" class="discountsBlock">
+                    <p class="txtDiscount">Акція</p>
+                    <p class="percentDiscount">-{{ prod.discountPercent }}%</p>
+                </div>
+                <div class="buttons">
+                    <app-compare-button [product]="prod"></app-compare-button>
+                </div>
+                <img class="prodImg" src="{{ prod.image }}"
+                    [routerLink]="[ '/menu/'+prod.category.nameEN + '/' + prod.subcategory.nameEN, prod.id ]">
+                <p class="prodTitle"
+                    [routerLink]="[ '/menu/'+prod.category.nameEN + '/' + prod.subcategory.nameEN, prod.id ]">
+                    {{ prod.name }}</p>
+                <p class="prodTxt">Час доставки до {{ prod.deliveryDays }} днів</p>
+                <div class="prodPrice">
+                    <p *ngIf="prod.discountPercent !== 0" class="oldPrice" [textContent]="prod.price+'грн'"></p>
+                    <p class="newPrice"
+                        [textContent]="(prod.discountPercent !== 0)?calcPrice(prod.price, prod.discountPercent, i)+'грн':prod.price+'грн'">
+                    </p>
+                </div>
+                <button class="butAddBasket" (click)="!checkBasket(prod)? addBasket(prod) : deleteBasket(prod)"
+                    [ngClass]="!checkBasket(prod)?'':'greenBut'"
+                    [textContent]="!checkBasket(prod)? 'Добавити в корзину':'Добавлено в корзину'">Добавити в
+                    корзину</button>
+                <button class="deleteWishlist" (click)="deleteWithWishlist(prod)">Видалити з списку</button>
+            </div>
+        </div>
+    </div>
+    <div class="paginator">
+        <pagination-controls *ngIf="wishlist.length > 9" (pageChange)="p = $event" previousLabel="Попередня"
+            nextLabel="Наступна">
+        </pagination-controls>
+    </div>
+</div>

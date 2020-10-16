@@ -1,0 +1,182 @@
+<div class="myContainer">
+    <div class="topBlock">
+        <div class="topBlock_left">
+            <div class="topBlock_left_img">
+                <div *ngIf="product?.discountPercent !== 0" class="discountsBlock">
+                    <p class="txtDiscount">Акція</p>
+                    <p class="percentDiscount">-{{ product?.discountPercent }}%</p>
+                </div>
+                <img src="{{product?.image}}" alt="{{product?.name}}">
+            </div>
+            <div class="topBlock_left_dandruff"></div>
+        </div>
+        <div class="topBlock_center">
+            <h1>{{ product?.name }}</h1>
+            <div class="topBlock_center_char">
+                <div class="topBlock_center_char_brand">
+                    <p class="brand">Виробник:<a [routerLink]="[ '/menu/' + 'trademarks/' + product?.trademarks.name ]"> {{ product?.trademarks.name }}</a></p>
+                    <p class="rating">Рейтинг: - </p>
+                </div>
+                <div class="topBlock_center_char_items">
+                    <ul class="list">
+                        <li>
+                            <div>
+                                <span>Артикул:</span>
+                                <div></div>
+                            </div>
+                            <div>{{ productCode }}</div>
+                        </li>
+                        <li>
+                            <div>
+                                <span>Колекція:</span>
+                                <div></div>
+                            </div>
+                            <div>-</div>
+                        </li>
+                        <li>
+                            <div>
+                                <span>Ширина:</span>
+                                <div></div>
+                            </div>
+                            <div>{{ getValue('ширина') }}</div>
+                        </li>
+                        <li>
+                            <div>
+                                <span>Тип джерела світла:</span>
+                                <div></div>
+                            </div>
+                            <div>{{ getValue('тип джерела світла') }}</div>
+                        </li>
+                        <li>
+                            <div>
+                                <span>Кількість ламп:</span>
+                                <div></div>
+                            </div>
+                            <div>{{ getValue('кількість ламп') }}</div>
+                        </li>
+                        <li>
+                            <div>
+                                <span>Лампи в комплекті:</span>
+                                <div></div>
+                            </div>
+                            <div>{{ getValue('лампи в комплекті') }}</div>
+                        </li>
+                        <li>
+                            <div>
+                                <span>Лампи в комплекті:</span>
+                                <div></div>
+                            </div>
+                            <div>{{ getValue('лампи в комплекті') }}</div>
+                        </li>
+                        <li>
+                            <div>
+                                <span>Потужність лампи:</span>
+                                <div></div>
+                            </div>
+                            <div>{{ getValue('потужність лампи') }}</div>
+                        </li>
+                        <li>
+                            <a (click)="scrollTo()">Всі характеристики</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="topBlock_center_price">
+                <div class="prodPrice">
+                    <p *ngIf="product?.discountPercent !== 0" class="oldPrice" [textContent]="product?.price+'грн'"></p>
+                    <p class="newPrice"
+                        [textContent]="(product?.discountPercent !== 0)?calcPrice(product?.price, product?.discountPercent)+'грн':product?.price+'грн'">
+                    </p>
+                </div>
+                <div class="countPrice">
+                    <app-product-count [product]="product"></app-product-count>
+                    <p class="allPrice"
+                        [textContent]="(product?.discountPercent !== 0)?'Сума: '+calcPrice(product?.price, product?.discountPercent)*product?.count+'грн':'Сума: '+product?.price*product?.count+'грн'">
+                    </p>
+                </div>
+                <div class="buttons">
+                    <button class="btnAddBasket" (click)="addBasket(product)">Додати в кошик</button>
+                    <app-compare-button [product]="product"></app-compare-button>
+                    <app-wishlist-heart [product]="product"></app-wishlist-heart>
+                </div>
+            </div>
+
+        </div>
+        <div class="topBlock_right">
+            <div>
+                <h3>Доставка</h3>
+                <ul>
+                    <li type="square">Нова Пошта на відділення</li>
+                    <li type="square">Нова Пошта на адресу</li>
+                    <li type="square">Доставка кур'єром у Львові</li>
+                    <li type="square">Самовивезення Львів</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Оплата</h3>
+                <ul>
+                    <li type="square">При отриманні товару</li>
+                    <li type="square">Готівкою, при отриманні товару</li>
+                    <li type="square">Visa / Mastercard + 2.75%</li>
+                    <li type="square">Готівкою кур'єру</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Знижки</h3>
+                <ul>
+                    <li type="square">Від 1000 грн - 4%</li>
+                    <li type="square">Від 3000 грн - 6%</li>
+                    <li type="square">Від 5000 грн - 8%</li>
+                    <li type="square">Від 10000 грн - 10%</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Гарантія</h3>
+                <ul>
+                    <li type="square">Від 1 до 7 років гарантії</li>
+                    <li type="square">Повернення впродовж 14 днів</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Виникли питання?</h3>
+                <p>Телефонуйте: <span>+38 050 810 22 80</span>
+                    або ми самі вам зателефонуємо</p>
+            </div>
+        </div>
+    </div>
+    <div class="bottomBlock">
+        <div *ngIf="showCharact" class="characteristics" id="allCharacteristics">
+            <div class="title">
+                <h2>Всі характеристики</h2>
+            </div>
+            <div class="allCharact" id="allCharact">
+                <ul class="list">
+                    <li>
+                        <div>
+                            <span>Виробник</span>
+                            <div></div>
+                        </div>
+                        <div>{{ productBrand?.name }}</div>
+                    </li>
+                    <li>
+                        <div>
+                            <span>Країна виробник</span>
+                            <div></div>
+                        </div>
+                        <div>{{ productBrand?.country }}</div>
+                    </li>
+                </ul>
+                <ul class="list" *ngFor="let ch of product?.characteristics">
+                    <li>
+                        <div>
+                            <span>{{ch.name | mytitlecase }}</span>
+                            <div></div>
+                        </div>
+                        <div>{{ ch.select }}</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>

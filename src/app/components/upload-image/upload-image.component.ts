@@ -34,7 +34,6 @@ export class UploadImageComponent implements OnInit {
         this.image = url;
         this.uploadService.putImage(url);
         this.imageStatus = true;
-        console.log(this.image);
       });
     });
   }

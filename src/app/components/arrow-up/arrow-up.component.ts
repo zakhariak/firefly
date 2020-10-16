@@ -31,10 +31,4 @@ export class ArrowUpComponent implements OnInit {
       }
     );
   }
-
-  //потрібно для роботи в інших компонентах
-  // @HostListener('window:scroll', ['$event'])
-  // private checkUp(event): void {
-  //   this.scrollService.onScroll(event);
-  // }
 }

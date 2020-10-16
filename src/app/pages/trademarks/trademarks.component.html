@@ -1,1 +1,15 @@
-<p>trademarks works!</p>
+<div class="mainContainer">
+    <h2 class="title">Торгові марки</h2>
+    <div class="brands">
+        <div class="brandCard" *ngFor="let br of arrBrands">
+            <div class="wrap" [routerLink]="[ '/menu/' + 'trademarks/' + br.name ]">
+                <div class="img">
+                    <img src="{{ br.logo }}" alt="{{ br.name }}">
+                </div>
+                <div class="name">
+                    <p>{{ br.name | mytitlecase}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

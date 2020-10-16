@@ -1,0 +1,53 @@
+.mainContainer {
+  &>.orders {
+    width: 100%;
+
+    &>table {
+      width: 100%;
+
+      tr {
+        &>th {
+          padding: 15px 0;
+          text-align: center;
+          background-color: rgb(221, 221, 221);
+          border-right: 2px solid white;
+
+          &:nth-child(1) {
+            width: 25%;
+          }
+
+          &:nth-child(2) {
+            width: 25%;
+          }
+
+          &:nth-child(3) {
+            width: 20%;
+          }
+
+          &:nth-child(4) {
+            width: 15%;
+          }
+
+          &:nth-child(5) {
+            width: 10%;
+          }
+        }
+
+        &>td {
+          padding: 15px 0;
+          text-align: center;
+        }
+
+        &:nth-child(2n) {
+          background-color: rgb(219, 219, 219);
+        }
+
+        &.title {
+          font-size: 20px;
+          font-weight: bold;
+        }
+      }
+
+    }
+  }
+}

@@ -1,0 +1,31 @@
+.mainContainer {
+  width: 100%;
+  padding: 50px;
+
+  >h2.title {
+    font-size: 32px;
+    font-weight: bold;
+  }
+
+  >section {
+    margin-top: 20px;
+
+    >h4 {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    >p {
+      margin: 20px 0;
+    }
+
+    >table {
+
+      >tr>td,
+      >tr>th {
+        padding: 3px;
+        border: 1px solid #000;
+      }
+    }
+  }
+}

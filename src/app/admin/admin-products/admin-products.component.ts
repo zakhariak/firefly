@@ -34,7 +34,7 @@ export class AdminProductsComponent implements OnInit {
   brandName: string = "Виберіть торгову марку";
 
   id: string = '1';
-  productCode: number = 20450;
+  productCode: number = 100;
   name: string;
   category: ICategory;
   subcategory: ISubcategory;
@@ -42,32 +42,10 @@ export class AdminProductsComponent implements OnInit {
   image: string;
   price: number;
   discountPercent: number = 0;
+  quantityInStock: number = 0;
   deliveryDays: number;
   rating: Array<number> = [];
-
-  //IProdCharacter
-  // bodyMaterial: string;
-  // plafondMaterial: string;
-  // bodyColor: string;
-  // plafondColor: string;
-  // height: number;
-  // allHeight: number;
-  // length: number;
-  // width: number;
-  // diameter: number;
-  // outside: number;
-  // typeOfLightSource: string;
-  // lampBase: string;
-  // ledServiceLife: string;
-  // lampCount: number;
-  // lampsIncluded: string = "Лампи в комплекті...";
-  // lampPower: string;
-  // luminousFlux: string;
-  // dimer: string = "Димер...";
-  // remoteControl: string = "Пульт ДУ...";
-  // degreeOfProtection: string;
-  // power: string;
-  // powerSupply: string;
+  count: number = 1;
 
   pID: string;
   editStatus: boolean = false;
@@ -76,7 +54,7 @@ export class AdminProductsComponent implements OnInit {
   imagePath: string;
 
 
-  testArr = [];
+  charArr = [];
 
   constructor(private modalService: BsModalService,
     private productService: ProductService,
@@ -93,15 +71,6 @@ export class AdminProductsComponent implements OnInit {
     this.getCharacteristics();
   }
 
-  showA(name: string, event): void {
-    console.log(name, event);
-  }
-
-  addSelect(): void {
-    console.log('work');
-
-  }
-
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template, { class: 'modal-xl modal-dialog-centered' });
   }
@@ -109,6 +78,7 @@ export class AdminProductsComponent implements OnInit {
   closeModal(): void {
     this.modalRef.hide();
     this.resetForm();
+    this.editStatus = false;
   }
 
   openDeleteModal(template, prod: IProduct) {
@@ -118,7 +88,7 @@ export class AdminProductsComponent implements OnInit {
   }
 
   btnDis() {
-    if (this.name && this.category && this.subcategory && this.trademark && this.price && this.deliveryDays && this.uploadService.getImage()) {
+    if (this.name && this.category && this.subcategory && this.price && this.deliveryDays && this.uploadService.getImage()) {
       return false
     } else {
       return true
@@ -136,30 +106,6 @@ export class AdminProductsComponent implements OnInit {
     this.price = null;
     this.discountPercent = null;
     this.deliveryDays = null;
-
-    // this.bodyMaterial = "";
-    // this.plafondMaterial = "";
-    // this.bodyColor = "";
-    // this.plafondColor = "";
-    // this.height = null;
-    // this.allHeight = null;
-    // this.length = null;
-    // this.width = null;
-    // this.diameter = null;
-    // this.outside = null;
-    // this.typeOfLightSource = "";
-    // this.lampBase = "";
-    // this.ledServiceLife = "";
-    // this.lampCount = null;
-    // this.lampsIncluded = "Лампи в комплекті...";
-    // this.lampPower = "";
-    // this.luminousFlux = "";
-    // this.dimer = "Димер...";
-    // this.remoteControl = "Пульт ДУ...";
-    // this.degreeOfProtection = "";
-    // this.power = "";
-    // this.powerSupply = "";
-
     this.imagePath = "";
     this.uploadService.editImage(false);
   }
@@ -179,8 +125,9 @@ export class AdminProductsComponent implements OnInit {
   }
 
   setCategory(): void {
-    this.category = this.arrCategory.filter(cat => cat.nameUA === this.categoryName.toLowerCase())[0];
+    this.category = this.arrCategory.filter(cat => cat.nameUA.toLowerCase() === this.categoryName.toLowerCase())[0];
     this.getSubcategory();
+    this.btnDis();
   }
 
   private getSubcategory(): void {
@@ -197,25 +144,26 @@ export class AdminProductsComponent implements OnInit {
   }
 
   setSubcategory(): void {
-    this.subcategory = this.arrSubcategory.filter(scat => scat.nameUA === this.subcategoryName.toLowerCase())[0];
+    this.subcategory = this.arrSubcategory.filter(scat => scat.nameUA.toLowerCase() === this.subcategoryName.toLowerCase())[0];
+    this.btnDis();
   }
 
   private getBrands(): void {
     this.trademarkService.getTrademarks().subscribe(
       collection => {
-        this.arrBrands = collection.map(brand => {
+        collection.map(brand => {
           const data = brand.payload.doc.data() as ITrademarks;
           data.id = brand.payload.doc.id;
-          return data
+          this.arrBrands.push({ ...data });
         })
       }
     )
   }
 
   setBrand(): void {
-    this.trademark = this.arrBrands.filter(brand => brand.name === this.brandName.toLowerCase())[0];
+    this.trademark = this.arrBrands.filter(brand => brand.name.toLowerCase() === this.brandName.toLowerCase())[0];
+    this.btnDis();
   }
-
   private getCharacteristics(): void {
     this.characterService.getAllCharacteristics().subscribe(collection => {
       this.arrChar = collection.map(char => {
@@ -241,20 +189,16 @@ export class AdminProductsComponent implements OnInit {
   addProduct() {
     if (!this.btnDis()) {
       this.addCharacter();
+      const d = new Date();
       const image = this.uploadService.getImage();
-      // const char = new ProdCharacter(this.bodyMaterial, this.plafondMaterial, this.bodyColor, this.plafondColor, this.height, this.allHeight, this.length, this.width, this.diameter, this.outside, this.typeOfLightSource, this.lampBase, this.ledServiceLife, this.lampCount, this.lampsIncluded, this.lampPower, this.luminousFlux, this.dimer, this.remoteControl, this.degreeOfProtection, this.power, this.powerSupply);
-      const newP = new Product(this.id, this.productCode, this.name, this.subcategory, this.category, this.trademark, image, this.price, this.rating, this.deliveryDays, this.discountPercent, this.testArr);
+      const newP = new Product(this.id, d, this.productCode, this.name, this.subcategory, this.category, this.trademark, image, this.price, this.rating, this.deliveryDays, this.discountPercent, this.quantityInStock, this.count, this.charArr);
       if (!this.editStatus) {
         delete newP.id;
-        console.log(newP);
-        this.productService.postProduct({ ...newP }).then(() => {
-          console.log('category add');
-        })
+        this.productService.postProduct({ ...newP });
       } else {
         newP.id = this.pID
         this.productService.updateProduct({ ...newP });
         this.editStatus = false;
-        console.log('product edit');
       }
       this.modalRef.hide();
       this.resetForm();
@@ -263,13 +207,20 @@ export class AdminProductsComponent implements OnInit {
 
   deleteProduct(): void {
     this.uploadService.deleteImage(this.imagePath);
-    this.trademarkService.deleteTrademark(this.pID);
+    this.productService.deleteProduct(this.pID);
     this.modalRef2.hide();
     this.imagePath = "";
   }
 
+  editProduct(template, prod: IProduct): void {
+    this.openModal(template);
+    this.name = prod.name;
+    this.editStatus = true;
+  }
+
 
   addCharacter(): void {
+    this.charArr = [];
     const sel = document.getElementById('selectsCh');
     for (let i = 0; i < sel.children.length; i++) {
       const txt = sel.children.item(i).children.item(0).textContent;
@@ -278,8 +229,8 @@ export class AdminProductsComponent implements OnInit {
         name: txt,
         select: val
       };
-      this.testArr.push({ ...tst });
+      this.charArr.push({ ...tst });
     }
-    console.log(this.testArr);
   }
+
 }

@@ -1,0 +1,55 @@
+app-mymodal {
+  display: none;
+
+  .my-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1000;
+    overflow: auto;
+    transform: translate(-50%, -50%);
+
+    .my-modal-body {
+      width: 400px;
+      background: #fff;
+      animation-duration: 0.3s;
+      animation-timing-function: ease;
+    }
+
+    @keyframes moveOn {
+      0% {
+        transform: scale(0)
+      }
+
+      100% {
+        transform: scale(1)
+      }
+    }
+
+    @keyframes moveOff {
+      0% {
+        transform: scale(1)
+      }
+
+      100% {
+        transform: scale(0)
+      }
+    }
+  }
+
+  .my-modal-background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    background-color: #000;
+    opacity: 0.75;
+    z-index: 900;
+  }
+}
+
+body.my-modal-open {
+  overflow: hidden;
+}

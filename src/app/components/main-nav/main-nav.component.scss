@@ -6,7 +6,6 @@
   font-family: Arial, Helvetica, sans-serif;
   position: relative;
 
-
   &_list {
     width: 100%;
     height: 95px;
@@ -25,30 +24,30 @@
       background-color: $menuColor;
       z-index: 10;
       color: $mainDTxtColor;
+      border-right: 1px solid #f5887d;
+      cursor: pointer;
 
-      &:last-child a {
-        border-right: 1px solid #f5887d;
+      &:last-child {
+        border-right: none;
       }
 
-      &>a {
+      &:last-child div {
+        border-right: none;
+      }
+
+      &>div.listItem {
         min-width: 100px;
         margin: 0 auto;
-        font-size: 0;
-        display: block;
         height: 100%;
-        color: inherit;
-        text-decoration: none;
-        padding: 0px;
         transition: .3s all ease;
-        background-color: inherit;
-        cursor: pointer;
-        position: relative;
 
         &:hover {
           box-shadow: inset 0px 0px 15px 0px rgba(255, 255, 255, 0.4);
         }
 
         &>span {
+          width: 100%;
+          height: 100%;
           line-height: 1.1;
           margin: 0 auto;
           padding: 2px;
@@ -65,11 +64,11 @@
             padding-bottom: 7px;
             padding-top: 5px;
             vertical-align: bottom;
+            z-index: -1;
           }
 
           &>span {
             color: white;
-            height: 32px;
             max-width: 200px;
             padding-left: 8px;
             padding-right: -5px;
@@ -77,7 +76,9 @@
             padding-top: 4px;
             padding-bottom: 7px;
             box-sizing: content-box;
+            z-index: -1;
           }
+
         }
       }
     }
@@ -85,57 +86,62 @@
 }
 
 .drop {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   flex-wrap: nowrap;
   background: #fff !important;
   text-align: left;
   border: 1px solid #e8e8e8;
   font-size: 1rem;
-  // padding: 10px 10px 10px 10px;
   position: absolute;
-  left: 0;
+  top: 93px;
+  left: 0px;
   height: 0px;
+  width: 0px;
   transition: height 0.3s ease;
+  transition: width 0.3s ease;
   background: #d5d5d5;
   overflow: hidden;
+  border: 1px solid $mainColor;
 
   &>.drop_list {
     display: flex;
     justify-content: space-between;
 
     &>ul {
-      max-width: 450px;
-      min-width: 200px;
-      padding: 5px;
+      min-width: 190px;
+      padding: 10px;
 
       &:first-child {
         border-right: 1px solid #fee4e0;
       }
 
       &>li {
-        width: 100%;
         height: 20px;
+        margin: 3px 0;
         display: list-item;
         margin-bottom: 0px;
         background-color: white;
         font-size: 14px;
-        text-align: center;
+        text-align: left;
         transition: 0.3s all ease;
         z-index: 10;
         color: $mainDTxtColor;
-
-
-        &>.fa-caret-right {
-          display: none;
-          font-size: 14px;
-        }
+        white-space: nowrap;
 
         &:hover {
           color: $mainColor;
           cursor: pointer;
+          text-decoration-line: underline;
+        }
 
-          &>.fa-caret-right {
-            display: inline-block;
+        &>a {
+          margin-right: 1px;
+          color: black;
+
+          &:hover {
             color: $mainColor;
           }
         }
@@ -145,19 +151,20 @@
 
   &>.linkCategory {
     position: relative;
-    width: calc(100% - 50px);
     bottom: 0;
-    left: 50%;
-    transform: translate(-50%, 0);
     line-height: 30px;
     border-top: 1px solid #fee4e0;
     text-align: center;
     background: #fff;
     font-size: 14px;
+    white-space: nowrap;
 
-    &:hover {
-      color: $mainColor;
-      cursor: pointer;
+    &>a {
+      color: black;
+
+      &:hover {
+        color: $mainColor;
+      }
     }
   }
 }
@@ -166,9 +173,12 @@
   .table_nav_list {
     height: 55px;
 
-    li>a>span {
+    li>div.listItem>span {
       padding: 5px;
+      display: flex;
       flex-direction: row;
+      align-items: center;
+      justify-content: center;
 
       img {
         margin: 0;
@@ -178,13 +188,41 @@
       span {
         margin: 0;
         max-width: 70px;
+        height: none;
         text-align: left;
       }
     }
   }
+
+  .drop {
+    top: 53px;
+  }
 }
 
+.eightNav>div:nth-of-type(2) {
+  left: -20px;
+}
+
+.nineNav>div:nth-of-type(2) {
+  left: auto;
+  right: -100px;
+}
 
 .showDrop {
   height: auto;
+  width: auto;
+  top: auto;
+  transition: height 0.5s ease;
+  transition: width 0.5s ease;
+}
+
+
+.mtable_nav {
+  display: none;
+}
+
+@media (max-width:1050px) {
+  .table_nav {
+    display: none;
+  }
 }

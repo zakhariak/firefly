@@ -1,0 +1,42 @@
+.mainContainer {
+  width: 100%;
+  padding: 50px;
+
+  >h2.title {
+    font-size: 32px;
+    font-weight: bold;
+  }
+
+  >div.brands {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+    >div.brandCard {
+      width: 20%;
+      min-width: 150px;
+      padding: 20px;
+
+      >.wrap {
+        border: 1px solid rgb(230, 230, 230);
+
+        >.img {
+          width: 100%;
+          padding: 10px;
+
+          img {
+            width: inherit;
+          }
+        }
+
+        >.name {
+          width: 100%;
+          padding: 10px;
+          background-color: rgb(230, 230, 230);
+          text-align: center;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,77 @@
+.myContainer {
+  width: 100%;
+
+  .header {
+    width: 100%;
+    height: 500px;
+    padding: 3px;
+    border: 1px solid rgb(202, 202, 202);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    bottom: 0;
+
+    input {
+      width: 100%;
+      height: 40px;
+    }
+  }
+
+  .body {
+    width: 100%;
+    padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+
+    .img {
+      width: 310px;
+      height: 250px;
+      margin: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+
+      >img {
+        width: 100%;
+      }
+
+      >.btn {
+        width: 100%;
+        margin-top: 2px;
+      }
+    }
+  }
+}
+
+::ng-deep {
+  app-upload-image.upload {
+    width: 100%;
+
+    >div.image {
+      width: 550px !important;
+      height: 400px;
+      margin: 0 auto;
+
+      img {
+        width: 500px;
+        height: 500px;
+      }
+
+      &:after {
+        top: -400px;
+        width: 550px;
+        height: 400px;
+        font-size: 300px;
+      }
+    }
+  }
+}
+
+.modal-body {
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}

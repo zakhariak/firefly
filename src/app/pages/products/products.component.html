@@ -1,0 +1,130 @@
+<div class="breadcrunbBlock">
+    <div class="breadcrumb">
+        <ul *ngIf="pageProducts !== 'promotional_offers'" class="breadcrumb smallSlideLeft">
+            <li>
+                <a [routerLink]="[ '/home' ]">
+                    <span>Головна</span>
+                </a>
+            </li>
+            <li><span>/</span>
+                <a [routerLink]="[ '/menu', products[0]?.category.nameEN ]">
+                    <span>{{ products[0]?.category?.nameUA | titlecase }}</span></a>
+            </li>
+            <li *ngIf="pageProducts === 'subcategory'"><span>/</span>
+                <a [routerLink]=" [ '/menu' , products[0]?.subcategory.nameEN ]">
+                    <span>{{ products[0]?.subcategory?.nameUA | titlecase }}</span></a>
+            </li>
+        </ul>
+        <ul *ngIf="pageProducts === 'promotional_offers'" class="breadcrumb smallSlideLeft">
+            <li>
+                <a [routerLink]="[ '/home' ]">
+                    <span>Головна</span>
+                </a>
+            </li>
+            <li><span>/</span>
+                <a>
+                    <span>Акційні пропозиції</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="bodyContainer" id="bodyContainer">
+
+    <div class="filterBtn" id="filterBtn" (click)="showNav()">
+        <i class="fas fa-filter"></i>
+    </div>
+    <div class="prodFilter" id="prodFilter">
+        <div class="mCollapse" (click)="showNav()">
+            <p><i class="fas fa-arrow-left"></i> Згорнути</p>
+        </div>
+        <div class="clearAll">
+            <p (click)="clearAll()">Скинути усе</p>
+        </div>
+        <div class="filters filterBrand">
+            <div class="filtersTop">
+                <h3 class="title">Виробники</h3>
+                <p (click)="clearBrand()">Скинути</p>
+            </div>
+            <select class="form-control" [(ngModel)]="brandFilter" name="brandFilter">
+                <option disabled></option>
+                <option *ngFor="let item of brands">
+                    {{ item.name }}
+                </option>
+            </select>
+        </div>
+        <div class="filters filterPrice">
+            <div class="filtersTop">
+                <h3 class="title">Ціна</h3>
+                <p (click)="clearPrice()">Скинути</p>
+            </div>
+            <div class="filtersBottom">
+                <input type="number" class="form-control" name="minPrice" [(ngModel)]="minPrice">
+                <input type="number" class="form-control" name="maxPrice" [(ngModel)]="maxPrice">
+                <input type="button" class="btn btn-light" value="Ок">
+            </div>
+            <div class="custom-slider">
+                <ng5-slider [(value)]="minPrice" [(highValue)]="maxPrice" [options]="options"></ng5-slider>
+            </div>
+        </div>
+        <div class="filters filterCountry">
+            <div class="filtersTop">
+                <h3 class="title">Країна виробник</h3>
+                <p (click)="clearCountry()">Скинути</p>
+            </div>
+            <select class="form-control" [(ngModel)]="countryFilter" name="countryFilter">
+                <option disabled></option>
+                <option *ngFor="let item of brandCountry">
+                    {{ item }}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="prodMain">
+        <div class="prodPageTitle">
+            <h2>{{ pageTitle | titlecase }}</h2>
+            <p>Знайдено товарів: {{searchLength }}</p>
+        </div>
+        <div class="pageView"></div>
+        <div class="products">
+            <div *ngIf="products.length == 0" class="notFound">
+                <h3>По вашому запиту нічого не знайдено</h3>
+            </div>
+            <div class="prodCard"
+                *ngFor="let prod of products | myfilter:{brand: brandFilter, country: countryFilter, priceMin: minPrice, priceMax: maxPrice} | paginate: { itemsPerPage: 9, currentPage: p }">
+                <div class="prodWrap">
+                    <div *ngIf="prod.discountPercent !== 0" class="discountsBlock">
+                        <p class="txtDiscount">Акція</p>
+                        <p class="percentDiscount">-{{ prod.discountPercent }}%</p>
+                    </div>
+                    <div class="buttons">
+                        <app-compare-button [product]="prod"></app-compare-button>
+                        <app-wishlist-heart [product]="prod"></app-wishlist-heart>
+                    </div>
+                    <img class="prodImg" src="{{ prod.image }}"
+                        [routerLink]="[ '/menu/'+prod.category.nameEN + '/' + prod.subcategory.nameEN, prod.id ]">
+                    <p class="prodTitle"
+                        [routerLink]="[ '/menu/'+prod.category.nameEN + '/' + prod.subcategory.nameEN, prod.id ]">
+                        {{ prod.name }}</p>
+                    <p class="prodTxt">Час доставки до {{ prod.deliveryDays }} днів</p>
+                    <div class="prodPrice">
+                        <p *ngIf="prod.discountPercent !== 0" class="oldPrice" [textContent]="prod.price+'грн'"></p>
+                        <p class="newPrice"
+                            [textContent]="(prod.discountPercent !== 0)?calcPrice(prod.price, prod.discountPercent, i)+'грн':prod.price+'грн'">
+                        </p>
+                    </div>
+                    <button class="butAddBasket" (click)="!checkBasket(prod)? addBasket(prod) : deleteBasket(prod)"
+                        [ngClass]="!checkBasket(prod)?'':'greenBut'"
+                        [textContent]="!checkBasket(prod)? 'Добавити в корзину':'Добавлено в корзину'">Добавити в
+                        корзину</button>
+                </div>
+            </div>
+        </div>
+        <div class="paginator">
+            <pagination-controls *ngIf="products.length > 9" (pageChange)="p = $event" previousLabel="Попередня"
+                nextLabel="Наступна">
+            </pagination-controls>
+        </div>
+    </div>
+</div>
+<app-last-viewed></app-last-viewed>

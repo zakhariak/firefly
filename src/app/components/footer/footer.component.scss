@@ -20,9 +20,9 @@
       &_catalog,
       &_contacts {
         width: 25%;
+        height: 271px;
         padding: 20px;
         color: white;
-
 
         h3 {
           font-size: 20px;
@@ -68,6 +68,8 @@
       }
 
       &_contacts {
+        width: 250px;
+
         p {
           width: 155px;
 
@@ -81,6 +83,83 @@
 
     &_bottom {
       margin: 0 auto;
+      text-align: center;
+
+      >p {
+        font-size: 10px;
+        color: $txtColor;
+      }
+    }
+  }
+}
+
+.mfooter_container_top {
+  display: none;
+}
+
+@media(max-width:800px) {
+  .footer_container_top {
+    display: none;
+
+    &_logo {
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .mfooter_container {
+    &_top {
+      display: flex;
+    }
+
+    &_topL,
+    &_topR {
+      width: 50%;
+    }
+  }
+
+  .footer_container_top {
+
+    &_logo,
+    &_shop-info,
+    &_catalog,
+    &_contacts {
+      width: 100%;
+    }
+
+    &_shop-info,
+    &_logo {
+      height: 210px;
+      padding-bottom: 0;
+    }
+  }
+}
+
+@media(max-width:400px) {
+  .footer_container_top {
+
+    &_shop-info,
+    &_catalog {
+      display: none;
+    }
+
+    &_logo {
+      >img {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  }
+
+  .mfooter_container {
+
+    &_topL {
+      width: 30%;
+    }
+
+    &_topR {
+      width: 70%;
     }
   }
 }

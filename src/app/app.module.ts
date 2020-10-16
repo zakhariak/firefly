@@ -7,6 +7,7 @@ import { QuillModule } from 'ngx-quill';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 
 import { HeaderComponent } from './components/header/header.component';
@@ -41,16 +42,31 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
-import { environment } from '../environments/environment';
+import { environment } from '../environments/environment.prod';
 import { ArrowUpComponent } from './components/arrow-up/arrow-up.component';
 import { UploadImageComponent } from './components/upload-image/upload-image.component';
-import { DividePipe } from './shared/pipes/divide.pipe';
 import { SearchPipe } from './shared/pipes/search.pipe';
 import { LoginComponent } from './login/login.component';
-
-
-
-
+import { BasketComponent } from './pages/basket/basket.component';
+import { MytitlecasePipe } from './shared/pipes/mytitlecase.pipe';
+import { ProductsComponent } from './pages/products/products.component';
+import { ProductDetailsComponent } from './pages/product-details/product-details.component';
+import { NgBlurDirective } from './shared/directives/ng-blur.directive';
+import { ProductCountComponent } from './components/product-count/product-count.component';
+import { NgxMaskModule, IConfig } from 'ngx-mask'
+import { maskConfig } from './mask-config';
+import { MyfilterPipe } from './shared/pipes/myfilter.pipe';
+import { MymodalModule } from './components/mymodal/mymodal.module';
+import { Ng5SliderModule } from 'ng5-slider';
+import { ImageSliderComponent } from './components/image-slider/image-slider.component';
+import { AdminSliderComponent } from './admin/admin-slider/admin-slider.component';
+import { CompareButtonComponent } from './components/compare-button/compare-button.component';
+import { NgGetValueDirective } from './shared/directives/ng-get-value.directive';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { WishlistHeartComponent } from './components/wishlist-heart/wishlist-heart.component';
+import { MobileNavComponent } from './components/mobile-nav/mobile-nav.component';
+import { OrderByPipe } from './shared/pipes/order-by.pipe';
+import { LastViewedComponent } from './components/last-viewed/last-viewed.component';
 
 
 
@@ -85,12 +101,26 @@ import { LoginComponent } from './login/login.component';
     AdminProductsComponent,
     ArrowUpComponent,
     UploadImageComponent,
-    DividePipe,
     AdminArchiveComponent,
     AdminAddComponent,
     AdminTextPagesComponent,
     SearchPipe,
-    LoginComponent
+    LoginComponent,
+    BasketComponent,
+    MytitlecasePipe,
+    ProductsComponent,
+    ProductDetailsComponent,
+    NgBlurDirective,
+    ProductCountComponent,
+    MyfilterPipe,
+    ImageSliderComponent,
+    AdminSliderComponent,
+    CompareButtonComponent,
+    NgGetValueDirective,
+    WishlistHeartComponent,
+    MobileNavComponent,
+    OrderByPipe,
+    LastViewedComponent
   ],
   imports: [
     BrowserModule,
@@ -103,6 +133,12 @@ import { LoginComponent } from './login/login.component';
     AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFireStorageModule,
+    NgxMaskModule.forRoot(maskConfig),
+    MymodalModule,
+    Ng5SliderModule,
+    CarouselModule.forRoot(),
+    NgxPaginationModule
+
   ],
   providers: [],
   exports: [],

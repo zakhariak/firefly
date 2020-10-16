@@ -14,7 +14,7 @@ export class CharacteristicsService {
     return this.firestore.collection('product-characteristics').snapshotChanges();
   }
 
-  addCharacteristic(characteristic: { name: string, select: Array<string> }): Promise<DocumentReference> {
+  addCharacteristic(characteristic: { nameUA: string, nameEN: string, select: Array<string> }): Promise<DocumentReference> {
     return this.firestore.collection('product-characteristics').add(characteristic);
   }
 

@@ -1,0 +1,56 @@
+@import"../../shared/styles-components/variables.scss";
+
+.mainContainer {
+  width: 100%;
+  padding: 50px;
+  line-height: 20px;
+
+  p,
+  li {
+    font-size: 14px;
+    color: $txtColor;
+  }
+
+  >h2.title {
+    font-size: 32px;
+    font-weight: bold;
+  }
+
+  >section {
+    margin: 20px 0;
+
+    >h3 {
+      font-size: 24px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    >section {
+      margin: 20px;
+
+      >h4 {
+        margin: 10px 0;
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      >h5 {
+        margin: 10px 0 5px 20px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      >.some {
+        margin-left: 20px;
+      }
+
+      >ul {
+        margin-left: 20px;
+
+        >li {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}

@@ -4,31 +4,33 @@
     </div>
     <div class="addChar">
         <h3>Створити характеристику</h3>
-        <input type="text" class="form-control" [(ngModel)]="characteristicName" name="characteristicName"
-            placeholder="Вкажіть назву характеристики">
+        <input type="text" class="form-control" [(ngModel)]="characteristicNameUA" name="characteristicNameUA"
+            placeholder="Вкажіть назву українською">
+        <input type="text" class="form-control" [(ngModel)]="characteristicNameEN" name="characteristicNameEN"
+            placeholder="Вкажіть назву англійською">
         <button type="button" class="btn btn-warning" (click)="addCharacter()"
-            [disabled]="!characteristicName">Створити</button>
+            [disabled]="!disBtnCreate()">Створити</button>
     </div>
     <div class="addSelect">
         <h3>Добавити значення</h3>
         <select class="form-control" [(ngModel)]="characterName" name="characterName">
             <option disabled>Виберіть характеристику</option>
-            <option *ngFor="let char of arrCharactr">
-                {{ char.name  }}
+            <option *ngFor="let char of arrCharactr | orderBy:{simple:true, value:'nameUA'}">
+                {{ char.nameUA  }}
             </option>
         </select>
         <input type="text" class="form-control" [(ngModel)]="selectName" name="selectName"
             placeholder="Вкажіть назву значення">
         <button type="button" class="btn btn-info" (click)="addCharacteristicValue()"
-            [disabled]="!selectName">Добавити</button>
+            [disabled]="!disBtnAdd()">Добавити</button>
     </div>
     <div class="search">
         <input type="text" class="form-control" [(ngModel)]="search" name="search"
             placeholder="Пошук по характеристиках...">
     </div>
     <div class="container charMain">
-        <div *ngFor="let char of arrCharactr | search:search" class="card">
-            <h3>{{ char.name  }}<span class="deleteDump" (click)="deleteChar(char)"><i
+        <div *ngFor="let char of arrCharactr | search:'nameUA':search" class="card">
+            <h3>{{ char.nameUA  }}<span class="deleteDump" (click)="deleteChar(char)"><i
                         class="far fa-trash-alt text-danger"></i></span></h3>
             <p *ngFor="let item of char.select let i = index">{{ item  }} <span class="deleteDump"
                     (click)="deleteSelect(char, i)"><i class="far fa-trash-alt text-danger"></i></span></p>

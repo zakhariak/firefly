@@ -9,7 +9,7 @@
                     <h3>Магазин</h3>
                     <ul>
                         <li><a [routerLink]="[ '/about' ]" routerLinkActive="active">Про магазин</a></li>
-                        <li><a [routerLink]="[ '/brands' ]" routerLinkActive="active">Бренди</a></li>
+                        <li><a [routerLink]="[ '/trademarks' ]" routerLinkActive="active">Бренди</a></li>
                         <li><a [routerLink]="[ '/blogs' ]" routerLinkActive="active">Блог</a></li>
                         <li><a [routerLink]="[ '/contacts' ]" routerLinkActive="active">Контакти</a></li>
                     </ul>
@@ -25,16 +25,10 @@
             <div class="footer_container_top_catalog">
                 <h3>Каталог</h3>
                 <ul>
-                    <li><a>Люстри</a></li>
-                    <li><a>Стельові світильники</a></li>
-                    <li><a>Точкові світильники</a></li>
-                    <li><a>Трекові світильники</a></li>
-                    <li><a>Бра</a></li>
-                    <li><a>Настільні лампи</a></li>
-                    <li><a>Торшери</a></li>
-                    <li><a>Вуличні лампи</a></li>
-                    <li><a>Комерційне світло</a></li>
-                    <li><a>Акції</a></li>
+                    <li *ngFor="let cat of arrCategory">
+                        <a [routerLink]="[ '/menu/' + cat.nameEN]">{{ cat.nameUA | mytitlecase}}</a>
+                    </li>
+                    <li><a [routerLink]="[ '/menu/' + 'promotional_offers' ]">Акції</a></li>
                 </ul>
             </div>
             <div class="footer_container_top_contacts">
@@ -53,6 +47,59 @@
                 </ul>
             </div>
         </div>
-        <div class="footer_container_bottom"> </div>
+        <div class="mfooter_container_top">
+            <div class="mfooter_container_topL">
+                <div class="footer_container_top_logo">
+                    <img src="../../../assets/images/LOGO_IC.png" alt="LOGO_ICON">
+                </div>
+                <div class="footer_container_top_catalog">
+                    <h3>Каталог</h3>
+                    <ul>
+                        <li *ngFor="let cat of arrCategory">
+                            <a [routerLink]="[ '/menu/' + cat.nameEN]">{{ cat.nameUA | mytitlecase}}</a>
+                        </li>
+                        <li><a [routerLink]="[ '/menu/' + 'promotional_offers' ]">Акції</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mfooter_container_topR">
+                <div class="footer_container_top_shop-info">
+                    <div class="footer_container_top_shop-info_up">
+                        <h3>Магазин</h3>
+                        <ul>
+                            <li><a [routerLink]="[ '/about' ]" routerLinkActive="active">Про магазин</a></li>
+                            <li><a [routerLink]="[ '/brands' ]" routerLinkActive="active">Бренди</a></li>
+                            <li><a [routerLink]="[ '/blogs' ]" routerLinkActive="active">Блог</a></li>
+                            <li><a [routerLink]="[ '/contacts' ]" routerLinkActive="active">Контакти</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer_container_top_shop-info_down">
+                        <h3>Інформація</h3>
+                        <ul>
+                            <li><a [routerLink]="[ '/delivery' ]" routerLinkActive="active">Доставка та оплата</a></li>
+                            <li><a [routerLink]="[ '/guarantee' ]" routerLinkActive="active">Гарантія</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer_container_top_contacts">
+                    <h3>Контакти</h3>
+                    <ul>
+                        <li><a href="tel:+38 097 000 00 00">+38 097 000 00 00</a></li>
+                        <li><a href="tel:+38 063 000 00 00">+38 063 000 00 00</a></li>
+                        <li><a href="tel:+38 050 000 00 00">+38 050 000 00 00</a></li>
+                        <li><a href="tel:+38 032 000 00 00">+38 032 000 00 00</a></li>
+                        <li>
+                            <p>81130, Україна,<br>м. Львів,<br>с. Сокільники,<br>вул. Скнилівська, 21</p>
+                        </li>
+                        <li>
+                            <p>пн-пт 9:00 - 18:00<br>сб 10:00 - 17:00<br>вс: вихідний</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer_container_bottom">
+            <p>© Інтернет - магазин світильників і люстр «Firefly» 2020</p>
+        </div>
     </div>
 </div>

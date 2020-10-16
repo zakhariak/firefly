@@ -1,0 +1,141 @@
+@import"../../shared/styles-components/variables.scss";
+
+.wrapIcon {
+  width: 40px;
+  height: 40px;
+  font-size: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $mainDTxtColor;
+  background-color: white;
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  z-index: 999;
+  cursor: pointer;
+}
+
+.mobileNav {
+  width: 250px;
+  position: absolute;
+  top: -10px;
+  left: -250px;
+  background-color: white;
+  z-index: 99999;
+  overflow: hidden;
+  transition: left 0.7s ease-in-out;
+
+  >.menu {
+    width: 500px;
+    display: flex;
+    position: relative;
+    left: 0px;
+    transition: left 0.7s ease-in-out;
+    background-color: white;
+    z-index: 1;
+
+    >.main-menu {
+      width: 250px;
+      position: relative;
+
+      >.category {
+        width: 100%;
+
+        >ul>li {
+          width: 100%;
+          height: 50px;
+          border-bottom: 1px solid #000;
+          display: flex;
+          align-items: center;
+          position: relative;
+          cursor: pointer;
+
+          >div.wrapImg {
+            width: 50px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $mainColor;
+
+            >img {
+              width: 35px;
+            }
+          }
+
+          >p {
+            margin-left: 5px;
+          }
+
+          >i {
+            color: black;
+            font-size: 20px;
+            position: absolute;
+            right: 10px;
+          }
+
+          &.collapse {
+            padding-left: 20px;
+          }
+        }
+      }
+
+      >.shop,
+      >.user {
+        width: 100%;
+        margin: 20px 0;
+
+        >p {
+          width: 100%;
+          background-color: $mainColor;
+          color: white;
+          padding: 3px 20px;
+        }
+
+        >ul>li {
+          width: 100%;
+          height: 50px;
+          padding-left: 20px;
+          border-bottom: 1px solid #000;
+          display: flex;
+          align-items: center;
+          position: relative;
+          cursor: pointer;
+        }
+      }
+    }
+
+    >.subcategory {
+      width: 250px;
+      background-color: white;
+
+      >ul>li {
+        width: 100%;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+        border-bottom: 1px solid #000;
+        cursor: pointer;
+
+
+      }
+    }
+  }
+
+  .active {
+    background-color: #cccccc;
+  }
+
+  >#shadow {
+    width: 0%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+}
